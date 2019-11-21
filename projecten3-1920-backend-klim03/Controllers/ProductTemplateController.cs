@@ -90,11 +90,12 @@ namespace projecten3_1920_backend_klim03.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("GetCategories")]
         public ActionResult<ICollection<CategoryTemplate>> GetCategories()
         {
             try
             {
+                ICollection<CategoryTemplate> test = _productTemplates.GetAllCategories().ToList();
                 return _productTemplates.GetAllCategories().ToList();
             }
             catch (ArgumentNullException)
