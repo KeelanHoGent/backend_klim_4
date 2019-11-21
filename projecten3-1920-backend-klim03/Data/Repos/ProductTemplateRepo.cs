@@ -41,6 +41,11 @@ namespace projecten3_1920_backend_klim03.Data.Repos
             throw new NotImplementedException();
         }
 
+        public CategoryTemplate getCategoryById(long categoryTemplateId)
+        {
+            return _categoryTemplates.Where(c => c.CategoryTemplateId == categoryTemplateId).SingleOrDefault();
+        }
+
         public void Remove(ProductTemplate obj)
         {
             _context.Remove(obj);
