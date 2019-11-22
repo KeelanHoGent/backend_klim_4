@@ -123,6 +123,7 @@ namespace projecten3_1920_backend_klim03.Data
                     Score = 9,
                     HasMultipleDisplayVariations = true,
                     CategoryTemplateId = ct1.CategoryTemplateId,
+                    SchoolId = schoolGO.SchoolId,
                     ProductVariationTemplates = new List<ProductVariationTemplate>
                     {
                         new ProductVariationTemplate
@@ -157,6 +158,7 @@ namespace projecten3_1920_backend_klim03.Data
                     Score = 6,
                     HasMultipleDisplayVariations = true,
                     CategoryTemplateId = ct1.CategoryTemplateId,
+                    SchoolId = schoolGO.SchoolId,
                     ProductVariationTemplates = new List<ProductVariationTemplate>
                     {
                         new ProductVariationTemplate
@@ -190,6 +192,7 @@ namespace projecten3_1920_backend_klim03.Data
                     Score = 5,
                     HasMultipleDisplayVariations = true,
                     CategoryTemplateId = ct1.CategoryTemplateId,
+                    SchoolId = schoolGO.SchoolId,
                     ProductVariationTemplates = new List<ProductVariationTemplate>
                     {
                          new ProductVariationTemplate
@@ -224,6 +227,7 @@ namespace projecten3_1920_backend_klim03.Data
                     Score = 8,
                     HasMultipleDisplayVariations = true,
                     CategoryTemplateId = ct1.CategoryTemplateId,
+                    SchoolId = schoolGO.SchoolId,
                     ProductVariationTemplates = new List<ProductVariationTemplate>
                     {
                         new ProductVariationTemplate

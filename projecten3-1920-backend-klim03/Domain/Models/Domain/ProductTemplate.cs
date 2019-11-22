@@ -22,8 +22,8 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
         public long CategoryTemplateId { get; set; }
         public CategoryTemplate CategoryTemplate { get; set; }
 
-        //public long SchoolId { get; set; }
-        //public School School { get; set; }
+        public long SchoolId { get; set; }
+        public School School { get; set; }
 
         public ICollection<ProductVariationTemplate> ProductVariationTemplates { get; set; } = new List<ProductVariationTemplate>();
 
@@ -47,12 +47,12 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public void RemoveVariation(ProductVariationTemplate pvt)
         {
-            ProductVariationTemplates.Remove(pvt);
+            ProductVariationTemplates.Add(pvt);
         }
 
         public void AddVariation(ProductVariationTemplate pvt)
         {
-            ProductVariationTemplates.Add(pvt);
+            ProductVariationTemplates.Remove(pvt);
         }
 
         internal void UpdateVariations(ICollection<ProductVariationTemplate> pvts)
