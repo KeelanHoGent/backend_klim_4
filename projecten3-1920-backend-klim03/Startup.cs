@@ -92,7 +92,7 @@ namespace projecten3_1920_backend_klim03
                     mySqlOptions.ServerVersion(new Version(8, 0, 17), ServerType.MySql).DisableBackslashEscaping();
                 }
                 ));
-            }
+            //}
 
 
          

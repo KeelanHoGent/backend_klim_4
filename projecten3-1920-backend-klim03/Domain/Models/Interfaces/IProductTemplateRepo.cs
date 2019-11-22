@@ -8,6 +8,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Interfaces
 {
     public interface IProductTemplateRepo : IGenericRepo<ProductTemplate>
     {
-        ICollection<ProductTemplate> GetBySchoolIdWithTemplatesAndGoTemplates(long schoolId);
+        ICollection<CategoryTemplate> GetAllCategories();
+        CategoryTemplate getCategoryById(long categoryTemplateId);
     }
 }

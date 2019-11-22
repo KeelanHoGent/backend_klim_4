@@ -12,11 +12,13 @@ namespace projecten3_1920_backend_klim03.Data.Repos
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<ProductTemplate> _productTemplates;
+        private readonly DbSet<CategoryTemplate> _categoryTemplates;
 
         public ProductTemplateRepo(ApplicationDbContext dbContext)
         {
             _context = dbContext;
             _productTemplates = dbContext.ProductTemplates;
+            _categoryTemplates = dbContext.CategoryTemplates;
         }
 
         public void Add(ProductTemplate obj)
@@ -29,14 +31,19 @@ namespace projecten3_1920_backend_klim03.Data.Repos
             return _productTemplates.ToList();
         }
 
+        public ICollection<CategoryTemplate> GetAllCategories()
+        {
+            return _categoryTemplates.ToList();
+        }
+
         public ProductTemplate GetById(long id)
         {
             throw new NotImplementedException();
         }
 
-        public ICollection<ProductTemplate> GetBySchoolIdWithTemplatesAndGoTemplates(long schoolId)
+        public CategoryTemplate getCategoryById(long categoryTemplateId)
         {
-            return _productTemplates.Where(g => g.SchoolId == schoolId || g.AddedByGO).Include(g => g.CategoryTemplate).ToList();
+            return _categoryTemplates.Where(c => c.CategoryTemplateId == categoryTemplateId).SingleOrDefault();
         }
 
         public void Remove(ProductTemplate obj)
