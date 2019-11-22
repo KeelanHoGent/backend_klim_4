@@ -35,8 +35,17 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
                 Order = new OrderDTO(group.Order);
             }
 
-            Pupils = group.PupilGroups.Select(g => new PupilDTO(g.Pupil)).ToList();
-            Evaluations = group.Evaluations.Select(g => new EvaluationDTO(g)).ToList();
+            if (group.PupilGroups.Count != 0)
+            {
+                Pupils = group.PupilGroups.Select(g => new PupilDTO(g.Pupil)).ToList();
+            }
+
+            if (group.Evaluations.Count != 0)
+            {
+                Evaluations = group.Evaluations.Select(g => new EvaluationDTO(g)).ToList();
+            }
+
+            
 
         }
     }

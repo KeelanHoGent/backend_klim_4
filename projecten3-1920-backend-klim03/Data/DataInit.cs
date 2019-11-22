@@ -261,6 +261,8 @@ namespace projecten3_1920_backend_klim03.Data
                 ProjectTemplate projectTemplate = new ProjectTemplate
                 {
                     AddedByGO = true,
+
+
                     ProjectDescr = "Dit is een project voor energie",
                     ProjectImage = "image",
                     ProjectName = "Energie kennismaking",
@@ -404,24 +406,24 @@ namespace projecten3_1920_backend_klim03.Data
 
                 groep1.AddEvaluation(new Evaluation
                 {
-                    DescriptionPupil = "evaluatie voor de leerling, eerste ronde",
-                    DescriptionPrivate = "evaluatie voor de leerkracht, eerste ronde",
+                    DescriptionPupil = "Een eerste evaluatie voor de leerling",
+                    DescriptionPrivate = "Een eerste evaluatie voor de leerkracht",
                     Extra = false,
                     EvaluationCritereaId = 1
                 });
 
                 groep1.AddEvaluation(new Evaluation
                 {
-                    DescriptionPupil = "evaluatie voor de leerling, tweede ronde",
-                    DescriptionPrivate = "evaluatie voor de leerkracht, tweede ronde",
+                    DescriptionPupil = "Een eerste evaluatie voor de leerling",
+                    DescriptionPrivate = "Een eerste evaluatie voor de leerkracht",
                     Extra = false,
                     EvaluationCritereaId = 2
                 });
 
                 groep1.AddEvaluation(new Evaluation
                 {
-                    DescriptionPupil = "evaluatie voor de leerling, derde ronde",
-                    DescriptionPrivate = "evaluatie voor de leerkracht, derde ronde",
+                    DescriptionPupil = "Een eerste evaluatie voor de leerling",
+                    DescriptionPrivate = "Een eerste evaluatie voor de leerkracht",
                     Extra = false,
                     EvaluationCritereaId = 3
                 });
@@ -429,8 +431,8 @@ namespace projecten3_1920_backend_klim03.Data
                 groep1.AddEvaluation(new Evaluation
                 {
                     Title = "Extra evaluatie",
-                    DescriptionPupil = "Extra leerling",
-                    DescriptionPrivate = "Extra leerkracht",
+                    DescriptionPupil = "Evaluatie op het eindproduct voor de leerling",
+                    DescriptionPrivate = "Evaluatie op het eindproduct voor de leerkracht",
                     Extra = true
                 });
 

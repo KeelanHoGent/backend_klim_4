@@ -31,7 +31,7 @@ namespace projecten3_1920_backend_klim03.Data.Repos
 
         public Group GetById(long id)
         {
-            return _groups.Include(g => g.PupilGroups)
+            return _groups.Include(g => g.PupilGroups).ThenInclude(g => g.Pupil)
                 .Include(g => g.Order).ThenInclude(g => g.OrderItems).ThenInclude(g => g.Product)
                 .SingleOrDefault(g => g.GroupId == id);
         }

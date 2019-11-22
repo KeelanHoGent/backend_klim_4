@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +29,7 @@ using projecten3_1920_backend_klim03.Data;
 using projecten3_1920_backend_klim03.Data.Repos;
 using projecten3_1920_backend_klim03.Domain.Models.Domain;
 using projecten3_1920_backend_klim03.Domain.Models.Interfaces;
+using projecten3_1920_backend_klim03.helpers;
 
 namespace projecten3_1920_backend_klim03
 {
@@ -70,18 +75,18 @@ namespace projecten3_1920_backend_klim03
             //services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("KlimaatMobielContext")));
             //
 
-            //if (Env.IsDevelopment())
-            //{
-            //    string connectionString = $"Server=127.0.0.1;Database=db_klim_local;User=root;Password=rootroot";
-            //    services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(connectionString, mySqlOptions =>
-            //    {
-            //        mySqlOptions.ServerVersion(new Version(8, 0, 17), ServerType.MySql).DisableBackslashEscaping();
-            //    }
-            //    ));
-            //}
-            //else
-            //{
-                string connectionString = $"Server=178.62.218.48;Database=db_sof_klim_v2;User=dbklimuser;Password=pwklimuser";
+            if (Env.IsDevelopment())
+            {
+                string connectionString = $"Server=127.0.0.1;Database=db_klim_local;User=root;Password=root";
+                services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(connectionString, mySqlOptions =>
+                {
+                    mySqlOptions.ServerVersion(new Version(8, 0, 17), ServerType.MySql).DisableBackslashEscaping();
+                }
+                ));
+            }
+            else
+            {
+                string connectionString = $"Server=178.62.218.48;Database=db_dev_klim_v2;User=dbklimuser;Password=pwklimuser";
                 services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(connectionString, mySqlOptions =>
                 {
                     mySqlOptions.ServerVersion(new Version(8, 0, 17), ServerType.MySql).DisableBackslashEscaping();
@@ -172,6 +177,30 @@ namespace projecten3_1920_backend_klim03
 
             services.AddScoped<DataInit>();
 
+
+
+            // pdf generating
+            services.AddScoped<PdfGenerator>();
+
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+            //services.AddScoped<TicketPdfGenerator>();
+
+            CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
+            string path = null;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                path = Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dylib");
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                path = Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll");
+            }
+            else
+            {
+                path = Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.so");
+            }
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -186,6 +215,7 @@ namespace projecten3_1920_backend_klim03
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
 
             app.UseHttpsRedirection();
 
