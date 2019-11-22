@@ -57,26 +57,47 @@ namespace projecten3_1920_backend_klim03.Controllers
         }
 
 
-
-
+      
         /// <summary>
-        /// Get the project for a given project code
+        /// Get the project with given id
         /// </summary>
-        /// <param name="projectCode">the code of a project</param>
-        /// <returns>The project</returns>
-        [HttpGet("byProjectCode/{projectCode}")]
-        public ActionResult<ProjectDTO> GetProjectByProjectCode(string projectCode)
+        /// <param name="projectId">the id of the project</param>
+        /// <returns>The project to diplay its progress</returns>
+        [HttpGet("progress/{projectId}")]
+        public ActionResult<ProjectDTO> GetProjectProgress(long projectId)
         {
             try
             {
-                return new ProjectDTO(_projects.GetByProjectCode(projectCode));
+                return new ProjectDTO(_projects.GetForProjectProgress(projectId));
             }
             catch (ArgumentNullException)
             {
                 return NotFound(new CustomErrorDTO("Project niet gevonden"));
             }
-            
         }
+
+        /// <summary>
+        /// Get product from a project
+        /// </summary>
+        /// <param name="projectId">the id of the project that contains the product</param>
+        /// <param name="productId">the id of the expected product</param>
+        /// <returns>The product</returns>
+        [HttpGet("{projectId}/products/{productId}")]
+        public ActionResult<ProductDTO> GetProductFromProject(long projectId, long productId)
+        {
+            try
+            {
+                return new ProductDTO(_projects.GetProductFromProject(projectId, productId));
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("Product niet gevonden"));
+            }
+        }
+
+
+
+
 
         /// <summary>
         /// updates a project
@@ -92,12 +113,11 @@ namespace projecten3_1920_backend_klim03.Controllers
 
                 p.ProjectName = dto.ProjectName;
                 p.ProjectDescr = dto.ProjectDescr;
-                p.ProjectCode = dto.ProjectCode;
                 p.ClassRoomId = dto.ClassRoomId;
                 p.ApplicationDomainId = dto.ApplicationDomainId;
 
                 p.UpdateProducts(dto.Products);
-                p.UpdateGroups(dto.Groups);
+                p.UpdateGroups(dto.Groups, p.ClassRoom.SchoolId);
 
                 _projects.SaveChanges();
 
@@ -130,5 +150,12 @@ namespace projecten3_1920_backend_klim03.Controllers
                 return NotFound(new CustomErrorDTO("Project niet gevonden"));
             }
         }
+
+
+
+
+
+
+
     }
 }

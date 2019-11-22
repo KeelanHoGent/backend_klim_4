@@ -14,10 +14,12 @@ namespace projecten3_1920_backend_klim03.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderRepo _orders;
+        private readonly IOrderItemRepo _orderItems;
 
-        public OrderController(IOrderRepo orders)
+        public OrderController(IOrderRepo orders, IOrderItemRepo orderItems)
         {
             _orders = orders;
+            _orderItems = orderItems;
         }
 
 
@@ -35,10 +37,13 @@ namespace projecten3_1920_backend_klim03.Controllers
                 Order o = _orders.GetById(orderId);
 
                 OrderItem oi = new OrderItem(dto);
-                o.AddOrderItem(oi);
+                var oiNew = o.AddOrderItem(oi);
 
                 _orders.SaveChanges();
-                return new RemoveOrAddedOrderItemDTO(o, oi);
+
+                var oiFullInclude = _orderItems.GetById(oiNew.OrderItemId);
+
+                return new RemoveOrAddedOrderItemDTO(o, oiFullInclude);
             }
             catch(NotSupportedException ex)
             {

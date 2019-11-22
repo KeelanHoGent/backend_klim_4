@@ -13,10 +13,10 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public string ProjectName { get; set; }
         public string ProjectDescr { get; set; }
-        public string ProjectCode { get; set; } // om project met leerling te linken
         public string ProjectImage { get; set; }
         public decimal ProjectBudget { get; set; }
         public ESchoolGrade ESchoolGrade { get; set; }
+        public bool Closed { get; set; }
 
         public long ClassRoomId { get; set; }
         public ClassRoom ClassRoom { get; set; }
@@ -26,6 +26,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public ICollection<Product> Products { get; set; } = new List<Product>();
         public ICollection<Group> Groups { get; set; } = new List<Group>();
+        public ICollection<EvaluationCriterea> EvaluationCritereas { get; set; } = new List<EvaluationCriterea>();
 
 
         public Project()
@@ -34,19 +35,42 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
         }
 
 
-        public Project(ProjectDTO dto)
+        public Project(ProjectDTO dto, long schoolId)
         {
             ProjectName = dto.ProjectName;
             ProjectDescr = dto.ProjectDescr;
-            ProjectCode = dto.ProjectCode;
             ProjectImage = dto.ProjectImage;
             ProjectBudget = dto.ProjectBudget;
             ESchoolGrade = dto.ESchoolYear;
 
-            ApplicationDomainId = dto.ApplicationDomainId;
+            Closed = dto.Closed;
 
-            dto.Products.ToList().ForEach(g => AddProduct(new Product(g)));
-            dto.Groups.ToList().ForEach(g => AddGroup(new Group(g)));
+            ApplicationDomainId = dto.ApplicationDomainId;
+            if(dto.Products != null)
+            {
+                dto.Products.ToList().ForEach(g => AddProduct(new Product(g)));
+            }
+            if(dto.Groups != null)
+            {
+                dto.Groups.ToList().ForEach(g => AddGroup(new Group(g, schoolId)));
+            }
+
+            if (dto.EvaluationCritereas != null)
+            {
+                dto.EvaluationCritereas.ToList().ForEach(g =>
+                {
+                    var ec = new EvaluationCriterea(g);
+                    Groups.ToList().ForEach(j =>
+                    {
+                        j.AddEvaluation(new Evaluation { 
+                            Group = j,
+                            EvaluationCriterea = ec
+                        });
+                    });
+                    AddEvaluationCriterea(ec);
+                }     
+                );
+            }
         }
 
         public Project(ProjectTemplate pt)
@@ -60,6 +84,11 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             pt.ProductTemplateProjectTemplates.ToList().ForEach(g => AddProduct(new Product(g.ProductTemplate)));
         }
 
+
+        public void AddEvaluationCriterea(EvaluationCriterea p)
+        {
+            EvaluationCritereas.Add(p);
+        }
 
         public void AddProduct(Product p)
         {
@@ -98,7 +127,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
                     item.Price = productMatch.Price;
                     item.ProductImage = productMatch.ProductImage;
 
-                    item.CatergoryId = productMatch.CatergoryId;
+                    item.CategoryId = productMatch.CategoryId;
                 }
             }
 
@@ -111,7 +140,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             }
         }
 
-        public void UpdateGroups(ICollection<GroupDTO> grs)
+        public void UpdateGroups(ICollection<GroupDTO> grs, long schoolId)
         {
 
             foreach (var item in Groups.ToList())
@@ -130,7 +159,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             {
                 if (item.GroupId == 0)
                 {
-                    AddGroup(new Group(item));
+                    AddGroup(new Group(item, schoolId));
                 }
             }
         }

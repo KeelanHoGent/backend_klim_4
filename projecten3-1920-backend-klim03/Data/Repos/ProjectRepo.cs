@@ -35,29 +35,43 @@ namespace projecten3_1920_backend_klim03.Data.Repos
         {
             return _projects
                 .Include(g => g.ClassRoom)
+                .Include(g => g.EvaluationCritereas)
+                .Include(g => g.Groups).ThenInclude(g => g.Evaluations)
                 .Include(g => g.Products).ThenInclude(g => g.Category)
                 .Include(g => g.Groups).ThenInclude(g => g.Order)
+                .Include(g => g.Groups)
                 .Include(g => g.ApplicationDomain)
                 .SingleOrDefault(g => g.ProjectId == id);
         }
 
-        public Project GetByProjectCode(string projectCode)
+        public Project GetForProjectProgress(long id)
         {
             return _projects
-                .Include(g => g.ClassRoom)
-                .Include(g => g.Products).ThenInclude(g => g.Category)
-                .Include(g => g.Groups)
-                .Include(g => g.ApplicationDomain)
-                .SingleOrDefault(g => g.ProjectCode == projectCode);
+             .Include(g => g.ClassRoom)
+             .Include(g => g.EvaluationCritereas)
+             .Include(g => g.Groups).ThenInclude(g => g.Evaluations).ThenInclude(g => g.EvaluationCriterea)
+             .Include(g => g.Groups).ThenInclude(g => g.Order).ThenInclude(g => g.OrderItems).ThenInclude(g => g.Product).ThenInclude(g => g.Category)
+             .Include(g => g.Groups).ThenInclude(g => g.PupilGroups).ThenInclude(g => g.Pupil)
+             // evaluatie
+             .Include(g => g.ApplicationDomain)
+             .SingleOrDefault(g => g.ProjectId == id);
         }
 
         public Project GetWithGroupsById(long id)
         {
             return _projects
                .Include(g => g.ClassRoom)
+               .Include(g => g.EvaluationCritereas)
+               .Include(g => g.Groups).ThenInclude(g => g.Evaluations)
                .Include(g => g.Groups).ThenInclude(g => g.Order).ThenInclude(g => g.OrderItems).ThenInclude(g => g.Product).ThenInclude(g => g.Category)
+               .Include(g => g.Groups).ThenInclude(g => g.PupilGroups).ThenInclude(g => g.Pupil)
                .Include(g => g.ApplicationDomain)
                .SingleOrDefault(g => g.ProjectId == id);
+        }
+
+        public Product GetProductFromProject(long projectId, long productId)
+        {
+            return _projects.Include(p => p.Products).ThenInclude(p => p.Category).SingleOrDefault(p => p.ProjectId == projectId).Products.SingleOrDefault(p => p.ProductId == productId);
         }
 
         public void Remove(Project obj)

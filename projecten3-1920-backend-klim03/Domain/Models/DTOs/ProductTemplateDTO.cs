@@ -13,6 +13,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
         public string ProductName { get; set; }
         public string Description { get; set; }
         public string ProductImage { get; set; }
+        public int Score { get; set; }
         public bool AddedByGO { get; set; }
 
         public long CategoryTemplateId { get; set; }
@@ -36,6 +37,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
             Description = pt.Description;
 
             ProductImage = pt.ProductImage;
+            Score = pt.Score;
             AddedByGO = pt.AddedByGO;
 
             CategoryTemplateId = pt.CategoryTemplateId;

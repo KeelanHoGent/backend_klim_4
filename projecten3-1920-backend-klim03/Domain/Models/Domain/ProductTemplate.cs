@@ -15,6 +15,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
         public string Description { get; set; }
         public string ProductImage { get; set; }
         public bool HasMultipleDisplayVariations { get; set; }
+        public int Score { get; set; }
 
         public bool AddedByGO { get; set; }
 
@@ -39,6 +40,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             ProductName = dto.ProductName;
             Description = dto.Description;
             ProductImage = dto.ProductImage;
+            Score = dto.Score;
             
             AddedByGO = addedByGO;
         }

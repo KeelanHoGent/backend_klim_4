@@ -72,15 +72,20 @@ namespace projecten3_1920_backend_klim03.Controllers
             try
             {
                 ClassRoom cr = _classRooms.GetById(classRoomId);
-                Project p = new Project(dto);
+                Project p = new Project(dto, cr.SchoolId);
+
+
+              
 
                 cr.AddProject(p);
-                _classRooms.SaveChanges();
 
+
+                _classRooms.SaveChanges();
                 return new ProjectDTO(p);
             }
             catch (ArgumentNullException)
             {
+            
                 return NotFound(new CustomErrorDTO("Klas niet gevonden"));
             }
            

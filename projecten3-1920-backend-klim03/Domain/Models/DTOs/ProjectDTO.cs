@@ -16,8 +16,6 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
         public string ProjectName { get; set; }
         [Required]
         public string ProjectDescr { get; set; }
-        [Required]
-        public string ProjectCode { get; set; }
         public string ProjectImage { get; set; }
         [Required]
         public decimal ProjectBudget { get; set; }
@@ -26,13 +24,15 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
         [Required]
         public long ClassRoomId { get; set; }
 
+        public bool Closed { get; set; }
+
         [Required]
         public long ApplicationDomainId { get; set; }
         public ApplicationDomainDTO ApplicationDomain { get; set; }
 
         public ICollection<ProductDTO> Products { get; set; } = new List<ProductDTO>();
         public ICollection<GroupDTO> Groups { get; set; } = new List<GroupDTO>();
-
+        public ICollection<EvaluationCritereaDTO> EvaluationCritereas { get; set; } = new List<EvaluationCritereaDTO>();
 
         public ProjectDTO()
         {
@@ -45,15 +45,24 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
 
             ProjectName = project.ProjectName;
             ProjectDescr = project.ProjectDescr;
-            ProjectCode = project.ProjectCode;
             ProjectImage = project.ProjectImage;
             ESchoolYear = project.ESchoolGrade;
+            ProjectBudget = project.ProjectBudget;
+            Closed = project.Closed;
 
+            ClassRoomId = project.ClassRoomId;
             ApplicationDomainId = project.ApplicationDomainId;
-            ApplicationDomain = new ApplicationDomainDTO(project.ApplicationDomain);
+
+            if(project.ApplicationDomain != null)
+            {
+                ApplicationDomain = new ApplicationDomainDTO(project.ApplicationDomain);
+            }
+            
 
             Products = project.Products.Select(g => new ProductDTO(g)).ToList();
             Groups = project.Groups.Select(g => new GroupDTO(g)).ToList();
+
+            EvaluationCritereas = project.EvaluationCritereas.Select(g => new EvaluationCritereaDTO(g)).ToList();
         }
 
 

@@ -15,7 +15,7 @@ namespace projecten3_1920_backend_klim03.Data.Mapping
             builder.ToTable("Order");
             builder.HasKey(g => g.OrderId);
 
-            builder.HasMany(g => g.OrderItems).WithOne(g => g.Order).HasForeignKey(g => g.OrderId).OnDelete(DeleteBehavior.Restrict);  
+            builder.HasMany(g => g.OrderItems).WithOne(g => g.Order).HasForeignKey(g => g.OrderId);  
         }
     }
 }

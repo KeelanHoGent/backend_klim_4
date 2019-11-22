@@ -21,15 +21,26 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public decimal GetOrderPrice => (decimal)OrderItems.Select(g => g.Product.Price * g.Amount).Sum();
 
+        public decimal GetOrderScore => avgScore();
+
         public Order()
         {
 
         }
 
-        public void AddOrderItem(OrderItem oi)
+        public OrderItem AddOrderItem(OrderItem oi)
         {
             if (Submitted) throw new NotSupportedException("It is not allowed to change a finalized order");
-            OrderItems.Add(oi);
+
+            if(OrderItems.FirstOrDefault(g => g.ProductId == oi.ProductId) != null)
+            {
+                OrderItems.FirstOrDefault(g => g.ProductId == oi.ProductId).Amount++;
+                return OrderItems.FirstOrDefault(g => g.ProductId == oi.ProductId);
+            } else
+            {
+                OrderItems.Add(oi);
+                return oi;
+            }    
         }
 
         public void RemoveOrderItem(OrderItem oi)
@@ -51,6 +62,30 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             Group.PayOrder(GetOrderPrice);
             Submitted = true;
             Time = DateTime.Now;
+        }
+
+
+        public decimal avgScore()
+        {
+            int amount = 0;
+            decimal total = 0;
+
+            if (OrderItems.Count != 0) {
+
+                foreach (var orderItem in OrderItems)
+                {
+                    for (int i = 0; i < orderItem.Amount; i++)
+                    {
+                        amount++;
+                        total += orderItem.Product.Score;
+                    }
+                }
+
+                return total / amount;
+            } else
+            {
+                return 0;
+            }
         }
 
     }

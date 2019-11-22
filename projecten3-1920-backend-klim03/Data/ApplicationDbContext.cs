@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using projecten3_1920_backend_klim03.Data.Mapping;
+using projecten3_1920_backend_klim03.Domain.Models;
 using projecten3_1920_backend_klim03.Domain.Models.Domain;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace projecten3_1920_backend_klim03.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<School> Schools { get; set; }
+        public DbSet<Pupil> Pupils { get; set; }
         public DbSet<ApplicationDomain> ApplicationDomains { get; set; }
 
         public DbSet<ProjectTemplate> ProjectTemplates { get; set; }
@@ -47,13 +49,17 @@ namespace projecten3_1920_backend_klim03.Data
             builder.ApplyConfiguration(new ProjectConfig());
             builder.ApplyConfiguration(new AdresConfig());
             builder.ApplyConfiguration(new SchoolConfig());
+            builder.ApplyConfiguration(new PupilConfig());
             builder.ApplyConfiguration(new ApplicationDomainConfig());
             builder.ApplyConfiguration(new ProductVariationTemplateConfig());
+            builder.ApplyConfiguration(new EvaluationConfig());
+            builder.ApplyConfiguration(new EvaluationCritereaConfig());
 
             builder.ApplyConfiguration(new ProjectTemplateConfig());
             builder.ApplyConfiguration(new CategoryTemplateConfig());
             builder.ApplyConfiguration(new ProductTemplateConfig());
             builder.ApplyConfiguration(new ProductTemplateProjectTemplateConfig());
+            builder.ApplyConfiguration(new PupilGroupConfig());
         }
     }
 }

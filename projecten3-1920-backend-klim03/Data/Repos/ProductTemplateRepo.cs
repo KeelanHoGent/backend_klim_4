@@ -34,6 +34,11 @@ namespace projecten3_1920_backend_klim03.Data.Repos
             throw new NotImplementedException();
         }
 
+        public ICollection<ProductTemplate> GetBySchoolIdWithTemplatesAndGoTemplates(long schoolId)
+        {
+            return _productTemplates.Where(g => g.SchoolId == schoolId || g.AddedByGO).Include(g => g.CategoryTemplate).ToList();
+        }
+
         public void Remove(ProductTemplate obj)
         {
             _context.Remove(obj);

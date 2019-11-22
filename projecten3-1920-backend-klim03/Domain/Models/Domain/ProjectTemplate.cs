@@ -15,7 +15,8 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
         public string ProjectDescr { get; set; }
         public string ProjectImage { get; set; }
         public bool AddedByGO { get; set; }
-
+        public int Budget { get; set; }
+        public int MaxScore { get; set; }
         public long ApplicationDomainId { get; set; }
         public ApplicationDomain ApplicationDomain { get; set; }
 
@@ -37,7 +38,8 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             ProjectDescr = dto.ProjectDescr;
             ProjectImage = dto.ProjectImage;
             AddedByGO = addedByGO;
-
+            Budget = dto.Budget;
+            MaxScore = dto.MaxScore;
             ApplicationDomainId = dto.ApplicationDomainId;
         }
 
@@ -70,7 +72,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
                     item.ProductTemplate.ProductName = productTemplateMatch.ProductName;
                     item.ProductTemplate.Description = productTemplateMatch.Description;
                     item.ProductTemplate.ProductImage = productTemplateMatch.ProductImage;
-
+                    
                     item.ProductTemplate.CategoryTemplateId = productTemplateMatch.CategoryTemplateId;
 
                     item.ProductTemplate.UpdateVariations(productTemplateMatch.ProductVariationTemplates);

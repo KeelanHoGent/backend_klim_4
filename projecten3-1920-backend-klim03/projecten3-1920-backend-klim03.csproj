@@ -14,6 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.App">
       <PrivateAssets Condition="'%(PackageReference.Version)' == ''">all</PrivateAssets>
       <Publish Condition="'%(PackageReference.Version)' == ''">true</Publish>
@@ -33,6 +34,18 @@
     <Compile Remove="Data\Repos\CategorieRepo.cs" />
     <Compile Remove="Domain\Models\Interfaces\ICategorieRepo.cs" />
   </ItemGroup>
+  
+  
 
+  <Target Name="CopyCustomContentOnPublish" AfterTargets="Publish"> 
+    <Copy SourceFiles="libwkhtmltox.dll" DestinationFolder="$(PublishDir)app" />
+    <Copy SourceFiles="libwkhtmltox.dylib" DestinationFolder="$(PublishDir)app" />
+    <Copy SourceFiles="libwkhtmltox.so" DestinationFolder="$(PublishDir)app" />
+    <Copy SourceFiles="libwkhtmltox.dll" DestinationFolder="$(PublishDir)" />
+    <Copy SourceFiles="libwkhtmltox.dylib" DestinationFolder="$(PublishDir)" />
+    <Copy SourceFiles="libwkhtmltox.so" DestinationFolder="$(PublishDir)" />
+
+    <Copy SourceFiles="Dockerfile" DestinationFolder="$(PublishDir)" />
+  </Target>
 
 </Project>

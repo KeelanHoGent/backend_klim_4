@@ -1,4 +1,6 @@
 ﻿using projecten3_1920_backend_klim03.Domain.Models.Domain;
+using projecten3_1920_backend_klim03.Domain.Models.Domain.enums;
+using projecten3_1920_backend_klim03.Domain.Models.Domain.ManyToMany;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +10,15 @@ namespace projecten3_1920_backend_klim03.Tests.Data
     public class DummyApplicationDbContext
     {
         public Order testOrder { get; }
+
         public OrderItem testOrderItem { get; }
+
+        public Project testProject;
+        public ProjectTemplate projectTemplate1;
+        public ProjectTemplate projectTemplate2;
+        public ProductTemplate producttemplate1;
+        public ProductTemplate producttemplate2;
+        public Group testGroup;
 
         public DummyApplicationDbContext()
         {
@@ -75,6 +85,64 @@ namespace projecten3_1920_backend_klim03.Tests.Data
                     testOrderItem2,
                     testOrderItem3
                 }
+            };
+            ApplicationDomain applicationDomainTest = new ApplicationDomain
+            {
+                ApplicationDomainId = 1,
+                ApplicationDomainName = "naam",
+                ApplicationDomainDescr = "niet veel speciaals"
+
+            };
+            testGroup = new Group
+            {
+                GroupId = 1,
+                GroupName = "groepsnaam",
+                Order = testOrder
+
+        };
+
+            testProject = new Project
+            {
+                ProjectName = "testproject",
+                ProjectDescr = "ceci est une beschrijving",
+                ProjectImage = "url",
+                ProjectBudget = 20,
+                ESchoolGrade = ESchoolGrade.ALGEMEEN,
+                Closed = false,
+                ApplicationDomainId = 1
+            };
+
+            projectTemplate1 = new ProjectTemplate
+            {
+                ProjectName = "DitIsEenTest",
+                ProjectDescr = "Dit is een test voor rojecttemplate",
+                ProjectImage = "ceci n'est pas une url",
+                AddedByGO = true,
+                ApplicationDomainId = 1,
+                ApplicationDomain = applicationDomainTest,
+                ProductTemplateProjectTemplates = new List<ProductTemplateProjectTemplate>()
+        };
+            projectTemplate2 = new ProjectTemplate
+            {
+                ProjectName = "DitIsEenAndereTest",
+                ProjectDescr = "Dit is 2e een test voor projecttemplate",
+                ProjectImage = "ceci n'est aussie pas une url",
+                AddedByGO = false,
+                ApplicationDomainId = 2
+            };
+            producttemplate1 = new ProductTemplate
+            {
+                ProductName = "DitIsEenProductTemplateTest",
+                Description = "dit is een beschrijving voor een producttemplate",
+                ProductImage = "dit is ook geen url",
+                AddedByGO = true
+            };
+            producttemplate2 = new ProductTemplate
+            {
+                ProductName = "DitIsEentweedeProductTemplateTest",
+                Description = "dit is een beschrijving voor een andere producttemplate",
+                ProductImage = "dit is ook geen url, zot eh",
+                AddedByGO = false
             };
         }
     }

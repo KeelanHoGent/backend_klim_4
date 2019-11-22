@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using projecten3_1920_backend_klim03.Domain.Models;
 using projecten3_1920_backend_klim03.Domain.Models.Domain;
 using projecten3_1920_backend_klim03.Domain.Models.Domain.ManyToMany;
 using projecten3_1920_backend_klim03.Domain.Models.DTOs;
@@ -41,6 +43,41 @@ namespace projecten3_1920_backend_klim03.Controllers
         }
 
 
+        /// <summary>
+        /// Get the project templates from a school 
+        /// </summary>
+        /// <param name="schoolId">the id of the school</param>
+        /// <returns>The project templates from the school</returns>
+        [HttpGet("projectTemplates/{schoolId}")]
+        public ActionResult<ICollection<ProjectTemplateDTO>> ProjectTemplatesFromSchool(long schoolId)
+        {
+            try
+            {
+                return _schools.GetByIdWithTemplates(schoolId).ProjectTemplates.Select(p => new ProjectTemplateDTO(p)).ToList();
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("School niet gevonden"));
+            }
+        }
+
+        /// <summary>
+        /// Get the product templates from a school 
+        /// </summary>
+        /// <param name="schoolId">the id of the school</param>
+        /// <returns>The product templates from the school</returns>
+        [HttpGet("productTemplates/{schoolId}")]
+        public ActionResult<ICollection<ProductTemplateDTO>> ProductTemplatesFromSchool(long schoolId)
+        {
+            try
+            {
+                return _schools.GetByIdWithTemplates(schoolId).ProductTemplates.Select(prod => new ProductTemplateDTO(prod)).ToList();
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("School niet gevonden"));
+            }
+        }
 
 
         /// <summary>
@@ -94,6 +131,38 @@ namespace projecten3_1920_backend_klim03.Controllers
             }
           
         }
+
+
+
+        /// <summary>
+        /// Adding a pupil to a given school
+        /// </summary>
+        /// <param name="dto">The pupil datails dto</param>
+        /// <param name="schoolId">the id of the school</param>
+        /// <returns>The added pupil</returns>
+        [HttpPost("addPupil/{schoolId}")]
+        public ActionResult<PupilDTO> AddPupil([FromBody]PupilDTO dto, long schoolId)
+        {
+            try
+            {
+                School s = _schools.GetById(schoolId);
+                Pupil p = new Pupil(dto, schoolId);
+
+                s.AddPupil(p);
+                _schools.SaveChanges();
+
+                return new PupilDTO(p);
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("School niet gevonden"));
+            }
+
+        }
+
+
+
+
 
     }
 }

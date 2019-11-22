@@ -21,6 +21,26 @@ namespace projecten3_1920_backend_klim03.Controllers
             _productTemplates = productTemplates;
         }
 
+
+
+        /// <summary>
+        /// Get the availiable productTemplates for a given school id 
+        /// </summary>
+        /// <param name="schoolId">the id of the school</param>
+        /// <returns>The product templates of the school and those that are added by the GO</returns>
+        [HttpGet("getAllProductTemplatesForSchool/{schoolId}")]
+        public ActionResult<ICollection<ProductTemplateDTO>> GetClassroomwithAllProductTemplates(long schoolId)
+        {
+            try
+            {
+                return _productTemplates.GetBySchoolIdWithTemplatesAndGoTemplates(schoolId).Select(g => new ProductTemplateDTO(g)).ToList();
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("School niet gevonden"));
+            }
+        }
+
         /// <summary>
         /// Get the product template with given id
         /// </summary>

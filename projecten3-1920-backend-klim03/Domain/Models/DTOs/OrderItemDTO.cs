@@ -28,7 +28,11 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
             ProductId = oi.ProductId;
             OrderId = oi.OrderId;
 
-            Product = new ProductDTO(oi.Product);
+            if(oi.Product != null)
+            {
+                Product = new ProductDTO(oi.Product);
+            }
+            
         }
     }
 }

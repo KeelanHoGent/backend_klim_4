@@ -12,13 +12,13 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
         public string ProductName { get; set; }
         public string Description { get; set; }
         public string ProductImage { get; set; }
-        public bool HasMultipleDisplayVariations { get; set; }
 
         public long ProjectId { get; set; }
 
         public double Price { get; set; }
+        public int Score { get; set; }
 
-        public long CatergoryId { get; set; }
+        public long CategoryId { get; set; }
         public Category Category { get; set; }
 
         public ProductDTO()
@@ -31,8 +31,11 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
             Description = product.Description;
             ProductImage = product.ProductImage;
 
+            Price = product.Price;
+            Score = product.Score;
+
             ProjectId = product.ProjectId;
-            CatergoryId = product.CatergoryId;
+            CategoryId = product.CategoryId;
             Category = product.Category;
 
         }

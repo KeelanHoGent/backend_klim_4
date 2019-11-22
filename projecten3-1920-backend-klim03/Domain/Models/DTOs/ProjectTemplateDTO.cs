@@ -19,6 +19,8 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
         public ApplicationDomainDTO ApplicationDomain { get; set; }
 
         public ICollection<ProductTemplateDTO> ProductTemplates { get; set; } = new List<ProductTemplateDTO>();
+        public int MaxScore { get; internal set; }
+        public int Budget { get; internal set; }
 
         public ProjectTemplateDTO()
         {
@@ -33,9 +35,15 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
             ProjectDescr = pt.ProjectDescr;
             ProjectImage = pt.ProjectImage;
             AddedByGO = pt.AddedByGO;
+            Budget = pt.Budget;
+            MaxScore = pt.MaxScore;
 
             ApplicationDomainId = pt.ApplicationDomainId;
-            ApplicationDomain = new ApplicationDomainDTO(pt.ApplicationDomain);
+            if(pt.ApplicationDomain != null)
+            {
+                ApplicationDomain = new ApplicationDomainDTO(pt.ApplicationDomain);
+            }
+            
 
             ProductTemplates = pt.ProductTemplateProjectTemplates.Select(g => new ProductTemplateDTO(g.ProductTemplate)).ToList();
 
