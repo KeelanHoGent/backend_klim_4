@@ -47,12 +47,12 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public void RemoveVariation(ProductVariationTemplate pvt)
         {
-            ProductVariationTemplates.Add(pvt);
+            ProductVariationTemplates.Remove(pvt);
         }
 
         public void AddVariation(ProductVariationTemplate pvt)
         {
-            ProductVariationTemplates.Remove(pvt);
+            ProductVariationTemplates.Add(pvt);
         }
 
         internal void UpdateVariations(ICollection<ProductVariationTemplate> pvts)
