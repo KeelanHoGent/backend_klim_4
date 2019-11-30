@@ -57,6 +57,8 @@ namespace projecten3_1920_backend_klim03.Controllers
                 pt.CategoryTemplateId = dto.CategoryTemplateId;
 
                 pt.UpdateVariations(dto.ProductVariationTemplates);
+                pt.Score = dto.Score;
+                pt.HasMultipleDisplayVariations = pt.HasMultipleDisplayVariations;
 
                 _productTemplates.SaveChanges();
                 return new ProductTemplateDTO(pt);

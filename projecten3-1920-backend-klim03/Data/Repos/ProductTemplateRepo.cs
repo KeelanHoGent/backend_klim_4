@@ -38,7 +38,7 @@ namespace projecten3_1920_backend_klim03.Data.Repos
 
         public ProductTemplate GetById(long id)
         {
-            throw new NotImplementedException();
+            return _productTemplates.Where(p => p.ProductTemplateId == id).Include(p => p.ProductVariationTemplates).Include(p => p.CategoryTemplate).SingleOrDefault();
         }
 
         public CategoryTemplate getCategoryById(long categoryTemplateId)
