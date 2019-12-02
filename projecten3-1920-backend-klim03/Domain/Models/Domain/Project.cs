@@ -46,11 +46,11 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             Closed = dto.Closed;
 
             ApplicationDomainId = dto.ApplicationDomainId;
-            if(dto.Products != null)
+            if (dto.Products != null)
             {
                 dto.Products.ToList().ForEach(g => AddProduct(new Product(g)));
             }
-            if(dto.Groups != null)
+            if (dto.Groups != null)
             {
                 dto.Groups.ToList().ForEach(g => AddGroup(new Group(g, schoolId)));
             }
@@ -62,13 +62,14 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
                     var ec = new EvaluationCriterea(g);
                     Groups.ToList().ForEach(j =>
                     {
-                        j.AddEvaluation(new Evaluation { 
+                        j.AddEvaluation(new Evaluation
+                        {
                             Group = j,
                             EvaluationCriterea = ec
                         });
                     });
                     AddEvaluationCriterea(ec);
-                }     
+                }
                 );
             }
         }
@@ -120,7 +121,8 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
                 if (productMatch == null) // the product has been removed by the user
                 {
                     RemoveProduct(item);
-                } else // the product is still present in both arrays so update the product
+                }
+                else // the product is still present in both arrays so update the product
                 {
                     item.ProductName = productMatch.ProductName;
                     item.Description = productMatch.Description;
@@ -133,7 +135,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
             foreach (var item in prs) // adds products that have not been assigned an ID yet (long is default 0)
             {
-                if(item.ProductId == 0)
+                if (item.ProductId == 0)
                 {
                     AddProduct(new Product(item));
                 }
@@ -143,15 +145,18 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
         public void UpdateGroups(ICollection<GroupDTO> grs, long schoolId)
         {
 
-            foreach (var item in Groups.ToList())
+            foreach (var group in Groups.ToList())
             {
-                var groupMatch = grs.FirstOrDefault(g => g.GroupId == item.GroupId);
+                var groupMatch = grs.FirstOrDefault(g => g.GroupId == group.GroupId);
                 if (groupMatch == null) // the group has been removed by the user
                 {
-                    RemoveGroup(item);
-                } else // the product is still present in both arrays so update the product
+                    RemoveGroup(group);
+                }
+                else // the product is still present in both arrays so update the product
                 {
-                    item.GroupName = groupMatch.GroupName;
+                    group.GroupName = groupMatch.GroupName;
+
+                    group.UpdatePupilGroup(groupMatch.Pupils, schoolId);
                 }
             }
 

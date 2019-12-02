@@ -30,22 +30,21 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
             GroupName = group.GroupName;
             ProjectId = group.ProjectId;
             UniqueGroupCode = group.UniqueGroupCode;
-            if(group.Order != null)
+            if (group.Order != null)
             {
                 Order = new OrderDTO(group.Order);
             }
 
-            if (group.PupilGroups.Count != 0)
+            if (group.PupilGroups != null)
             {
                 Pupils = group.PupilGroups.Select(g => new PupilDTO(g.Pupil)).ToList();
             }
 
-            if (group.Evaluations.Count != 0)
+            if (group.PupilGroups != null)
             {
                 Evaluations = group.Evaluations.Select(g => new EvaluationDTO(g)).ToList();
             }
 
-            
 
         }
     }

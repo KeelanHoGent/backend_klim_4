@@ -28,13 +28,13 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public Group()
         {
-          
+
         }
 
         public Group(GroupDTO dto, long schoolId)
         {
             GroupName = dto.GroupName;
-            GroupCode = Guid.NewGuid().ToString().Substring(0,4);
+            GroupCode = Guid.NewGuid().ToString().Substring(0, 4);
 
             if (dto.Pupils != null)
             {
@@ -83,25 +83,72 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
         public void InitOrder()
         {
             Order = new Order
-            {   
+            {
             };
         }
 
         public void PayOrder(decimal amount)
         {
-            if(amount <= 0)
+            if (amount <= 0)
             {
-                throw new ArgumentOutOfRangeException("Amount needs to be greater than 0");
+                throw new ArgumentOutOfRangeException();
             }
 
             decimal result = Project.ProjectBudget - amount;
 
-            if(result < 0)
+            if (result < 0)
             {
                 throw new ArithmeticException("Result can't be less than 0");
             }
 
             // only check for erros when "paying" an order, amount is calculated at runtime
+        }
+
+        public void UpdatePupilGroup(ICollection<PupilDTO> pupils, long schoolId)
+        {
+            List<PupilDTO> newPupils = new List<PupilDTO>();
+
+
+            ////Bij een nieuwe pupil 
+            //pupils.ToList().FindAll(np => np.PupilId == 0).ForEach(p =>
+            //{
+            //    newPupils.Add(p);
+            //    AddPupil(new Pupil(p, schoolId));
+            //});
+
+            //List<PupilDTO> oldPupils = pupils.ToList().Except(newPupils).ToList();
+
+            //List<Pupil> ps = PupilGroups.ToList().ForEach(pg => oldPupils.Any(op => op.PupilId != pg.PupilId).);
+
+
+            //(op =>
+            //{
+
+            //    if (pg.PupilId != op.PupilId)
+            //    {
+            //        PupilGroups.Remove(pg);
+            //    }
+            //})); ;
+
+
+            //foreach (var pupilGroup in PupilGroups)
+            //{
+
+            //}
+
+            foreach (var pupilGroup in PupilGroups)
+            {
+                var pupilMatch = pupils.FirstOrDefault(p => p.PupilId == pupilGroup.PupilId);
+                if (pupilMatch == null) // the pupil has been removed by the user
+                {
+                    PupilGroups.Remove(pupilGroup);
+                }
+            }
+
+            pupils.ToList().FindAll(np => np.PupilId == 0).ForEach(p =>
+            {
+                AddPupil(new Pupil(p, schoolId));
+            });
         }
 
     }
