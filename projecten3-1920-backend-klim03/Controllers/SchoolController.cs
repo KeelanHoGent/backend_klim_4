@@ -16,10 +16,12 @@ namespace projecten3_1920_backend_klim03.Controllers
     public class SchoolController : ControllerBase
     {
         private readonly ISchoolRepo _schools;
+        private readonly IProductTemplateRepo _productTemplateRepo;
 
-        public SchoolController(ISchoolRepo schools)
+        public SchoolController(ISchoolRepo schools, IProductTemplateRepo productTemplateRepo)
         {
             _schools = schools;
+            _productTemplateRepo = productTemplateRepo;
         }
 
 
@@ -119,6 +121,13 @@ namespace projecten3_1920_backend_klim03.Controllers
             {
                 School s = _schools.GetById(schoolId);
                 ProductTemplate pt = new ProductTemplate(dto, true); // boolean (addedByGO) dependant on logged in user
+                pt.School = s;
+                pt.CategoryTemplate = _productTemplateRepo.getCategoryById(dto.CategoryTemplateId);
+
+                foreach (var el in dto.ProductVariationTemplates)
+                {
+                    pt.AddVariation(el);
+                }
 
                 s.AddProductTemplate(pt);
                 _schools.SaveChanges();
