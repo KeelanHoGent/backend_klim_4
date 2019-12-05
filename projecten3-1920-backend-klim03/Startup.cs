@@ -75,24 +75,24 @@ namespace projecten3_1920_backend_klim03
             //services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("KlimaatMobielContext")));
             //
 
-            if (Env.IsDevelopment())
-            {
-                string connectionString = $"Server=127.0.0.1;Database=db_klim_local;User=root;Password=root";
-                services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(connectionString, mySqlOptions =>
-                {
-                    mySqlOptions.ServerVersion(new Version(8, 0, 17), ServerType.MySql).DisableBackslashEscaping();
-                }
-                ));
-            }
-            else
-            {
+            //if (Env.IsDevelopment())
+            //{
+            //    string connectionString = $"Server=127.0.0.1;Database=db_klim_local;User=root;Password=root";
+            //    services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(connectionString, mySqlOptions =>
+            //    {
+            //        mySqlOptions.ServerVersion(new Version(8, 0, 17), ServerType.MySql).DisableBackslashEscaping();
+            //    }
+            //    ));
+            //}
+            //else
+            //{
                 string connectionString = $"Server=178.62.218.48;Database=db_dev_klim_v2;User=dbklimuser;Password=pwklimuser";
                 services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(connectionString, mySqlOptions =>
                 {
                     mySqlOptions.ServerVersion(new Version(8, 0, 17), ServerType.MySql).DisableBackslashEscaping();
                 }
                 ));
-            }
+            //}
 
 
          
