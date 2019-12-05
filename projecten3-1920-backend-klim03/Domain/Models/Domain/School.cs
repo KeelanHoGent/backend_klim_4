@@ -53,5 +53,9 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             ProductTemplates.Add(pt);
         }
 
+        internal void addClassroom(ClassRoom classRoom)
+        {
+            ClassRooms.Add(classRoom);
+        }
     }
 }
