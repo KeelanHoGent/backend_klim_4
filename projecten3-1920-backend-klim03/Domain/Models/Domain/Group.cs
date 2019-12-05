@@ -104,5 +104,18 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             // only check for erros when "paying" an order, amount is calculated at runtime
         }
 
+        public void UpdatePupil(Pupil pupil)
+        {
+            PupilGroup oldPupil = null;
+            if(pupil.PupilId != 0)
+            {
+                oldPupil = PupilGroups.SingleOrDefault(p => p.PupilId == pupil.PupilId);
+                oldPupil.Pupil.FirstName = pupil.FirstName;
+                oldPupil.Pupil.Surname = pupil.Surname;
+            } else
+            {
+                PupilGroups.Add(new PupilGroup() { Group = this, GroupId = this.GroupId, Pupil = pupil });
+            }
+        }
     }
 }
