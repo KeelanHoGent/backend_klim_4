@@ -16,6 +16,7 @@ namespace projecten3_1920_backend_klim03.Data.Mapping
             builder.HasKey(g => g.ClassRoomId);
 
             builder.HasMany(g => g.Projects).WithOne(g => g.ClassRoom).HasForeignKey(g => g.ClassRoomId);
+            builder.HasMany(c => c.Pupils).WithOne();
         }
     }
 }
