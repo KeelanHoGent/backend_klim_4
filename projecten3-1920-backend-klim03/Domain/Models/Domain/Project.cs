@@ -55,6 +55,8 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
                 dto.Groups.ToList().ForEach(g => AddGroup(new Group(g, schoolId)));
             }
 
+            Console.WriteLine(dto.EvaluationCritereas);
+
             if (dto.EvaluationCritereas != null)
             {
                 dto.EvaluationCritereas.ToList().ForEach(g =>
@@ -141,6 +143,32 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
                 }
             }
         }
+
+        public void UpdateEvaluationC(ICollection<EvaluationCritereaDTO> evc)
+        {
+            foreach(var item in EvaluationCritereas.ToList())
+            {
+                var ecMatch = evc.FirstOrDefault(e => e.EvaluationCritereaId == item.EvaluationCritereaId);
+                if (ecMatch == null)
+                {
+                    EvaluationCritereas.Remove(item);
+                } else
+                {
+                    item.Title = ecMatch.Title;
+                }
+            }
+
+            foreach (var item in evc) // adds products that have not been assigned an ID yet (long is default 0)
+            {
+                if (item.EvaluationCritereaId == 0)
+                {
+                    var ev = new EvaluationCriterea();
+                    ev.Title = item.Title;
+                    EvaluationCritereas.Add(ev);
+                }
+            }
+        }
+
 
         public void UpdateGroups(ICollection<GroupDTO> grs, long schoolId)
         {
