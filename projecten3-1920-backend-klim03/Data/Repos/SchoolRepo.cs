@@ -44,6 +44,12 @@ namespace projecten3_1920_backend_klim03.Data.Repos
                .SingleOrDefault(g => g.SchoolId == id);
         }
 
+        public School GetByIdWithClassrooms(long id)
+        {
+            return _schools.Include(s => s.ClassRooms).ThenInclude(c => c.Pupils)
+                .SingleOrDefault(s => s.SchoolId == id);
+        }
+
         public void Remove(School obj)
         {
             _schools.Remove(obj);
