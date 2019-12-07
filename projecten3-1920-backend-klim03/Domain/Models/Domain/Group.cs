@@ -109,42 +109,17 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             List<PupilDTO> newPupils = new List<PupilDTO>();
 
 
-            ////Bij een nieuwe pupil 
-            //pupils.ToList().FindAll(np => np.PupilId == 0).ForEach(p =>
-            //{
-            //    newPupils.Add(p);
-            //    AddPupil(new Pupil(p, schoolId));
-            //});
-
-            //List<PupilDTO> oldPupils = pupils.ToList().Except(newPupils).ToList();
-
-            //List<Pupil> ps = PupilGroups.ToList().ForEach(pg => oldPupils.Any(op => op.PupilId != pg.PupilId).);
-
-
-            //(op =>
-            //{
-
-            //    if (pg.PupilId != op.PupilId)
-            //    {
-            //        PupilGroups.Remove(pg);
-            //    }
-            //})); ;
-
-
-            //foreach (var pupilGroup in PupilGroups)
-            //{
-
-            //}
-
             foreach (var pupilGroup in PupilGroups)
             {
                 var pupilMatch = pupils.FirstOrDefault(p => p.PupilId == pupilGroup.PupilId);
-                if (pupilMatch == null) // the pupil has been removed by the user
+                // when there is no pupilMatch between the given collection and the db collection, the user deleted the pupil 
+                if (pupilMatch == null) 
                 {
                     PupilGroups.Remove(pupilGroup);
                 }
             }
 
+            //when there are pupils with ID 0 in the given list, the pupils in the group are new
             pupils.ToList().FindAll(np => np.PupilId == 0).ForEach(p =>
             {
                 AddPupil(new Pupil(p, schoolId));

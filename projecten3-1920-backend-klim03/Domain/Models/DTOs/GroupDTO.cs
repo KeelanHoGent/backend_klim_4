@@ -40,7 +40,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
                 Pupils = group.PupilGroups.Select(g => new PupilDTO(g.Pupil)).ToList();
             }
 
-            if (group.PupilGroups != null)
+            if (group.Evaluations != null)
             {
                 Evaluations = group.Evaluations.Select(g => new EvaluationDTO(g)).ToList();
             }
