@@ -106,9 +106,6 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public void UpdatePupilGroup(ICollection<PupilDTO> pupils, long schoolId)
         {
-            List<PupilDTO> newPupils = new List<PupilDTO>();
-
-
             foreach (var pupilGroup in PupilGroups)
             {
                 var pupilMatch = pupils.FirstOrDefault(p => p.PupilId == pupilGroup.PupilId);
