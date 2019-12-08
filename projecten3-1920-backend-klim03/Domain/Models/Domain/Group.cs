@@ -28,13 +28,13 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public Group()
         {
-          
+
         }
 
         public Group(GroupDTO dto, long schoolId)
         {
             GroupName = dto.GroupName;
-            GroupCode = Guid.NewGuid().ToString().Substring(0,4);
+            GroupCode = Guid.NewGuid().ToString().Substring(0, 4);
 
             if (dto.Pupils != null)
             {
@@ -83,25 +83,44 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
         public void InitOrder()
         {
             Order = new Order
-            {   
+            {
             };
         }
 
         public void PayOrder(decimal amount)
         {
-            if(amount <= 0)
+            if (amount <= 0)
             {
-                throw new ArgumentOutOfRangeException("Amount needs to be greater than 0");
+                throw new ArgumentOutOfRangeException();
             }
 
             decimal result = Project.ProjectBudget - amount;
 
-            if(result < 0)
+            if (result < 0)
             {
                 throw new ArithmeticException("Result can't be less than 0");
             }
 
             // only check for erros when "paying" an order, amount is calculated at runtime
+        }
+
+        public void UpdatePupilGroup(ICollection<PupilDTO> pupils, long schoolId)
+        {
+            foreach (var pupilGroup in PupilGroups)
+            {
+                var pupilMatch = pupils.FirstOrDefault(p => p.PupilId == pupilGroup.PupilId);
+                // when there is no pupilMatch between the given collection and the db collection, the user deleted the pupil 
+                if (pupilMatch == null) 
+                {
+                    PupilGroups.Remove(pupilGroup);
+                }
+            }
+
+            //when there are pupils with ID 0 in the given list, the pupils in the group are new
+            pupils.ToList().FindAll(np => np.PupilId == 0).ForEach(p =>
+            {
+                AddPupil(new Pupil(p, schoolId));
+            });
         }
 
     }

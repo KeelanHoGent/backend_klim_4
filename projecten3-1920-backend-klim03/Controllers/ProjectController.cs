@@ -113,11 +113,17 @@ namespace projecten3_1920_backend_klim03.Controllers
 
                 p.ProjectName = dto.ProjectName;
                 p.ProjectDescr = dto.ProjectDescr;
+                p.ProjectImage = dto.ProjectImage;
+                p.ProjectBudget = dto.ProjectBudget;
+                p.ESchoolGrade = dto.ESchoolYear;
+
                 p.ClassRoomId = dto.ClassRoomId;
                 p.ApplicationDomainId = dto.ApplicationDomainId;
 
                 p.UpdateProducts(dto.Products);
                 p.UpdateGroups(dto.Groups, p.ClassRoom.SchoolId);
+                p.UpdateEvaluationC(dto.EvaluationCritereas);
+                
 
                 _projects.SaveChanges();
 
