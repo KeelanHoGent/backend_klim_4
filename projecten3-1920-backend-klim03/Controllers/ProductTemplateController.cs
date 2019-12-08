@@ -21,26 +21,6 @@ namespace projecten3_1920_backend_klim03.Controllers
             _productTemplates = productTemplates;
         }
 
-
-
-        /// <summary>
-        /// Get the availiable productTemplates for a given school id 
-        /// </summary>
-        /// <param name="schoolId">the id of the school</param>
-        /// <returns>The product templates of the school and those that are added by the GO</returns>
-        [HttpGet("getAllProductTemplatesForSchool/{schoolId}")]
-        public ActionResult<ICollection<ProductTemplateDTO>> GetClassroomwithAllProductTemplates(long schoolId)
-        {
-            try
-            {
-                return _productTemplates.GetBySchoolIdWithTemplatesAndGoTemplates(schoolId).Select(g => new ProductTemplateDTO(g)).ToList();
-            }
-            catch (ArgumentNullException)
-            {
-                return NotFound(new CustomErrorDTO("School niet gevonden"));
-            }
-        }
-
         /// <summary>
         /// Get the product template with given id
         /// </summary>
@@ -60,7 +40,6 @@ namespace projecten3_1920_backend_klim03.Controllers
 
         }
 
-
         /// <summary>
         /// updates a product template
         /// </summary>
@@ -79,6 +58,8 @@ namespace projecten3_1920_backend_klim03.Controllers
                 pt.CategoryTemplateId = dto.CategoryTemplateId;
 
                 pt.UpdateVariations(dto.ProductVariationTemplates);
+                pt.Score = dto.Score;
+                pt.HasMultipleDisplayVariations = pt.HasMultipleDisplayVariations;
 
                 _productTemplates.SaveChanges();
                 return new ProductTemplateDTO(pt);
@@ -112,9 +93,18 @@ namespace projecten3_1920_backend_klim03.Controllers
             }
         }
 
-
-
-
+        [HttpGet("GetCategories")]
+        public ActionResult<ICollection<CategoryTemplate>> GetCategories()
+        {
+            try
+            {
+                return _productTemplates.GetAllCategories().ToList();
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("list of categories not found"));
+            }
+        }
 
     }
 }

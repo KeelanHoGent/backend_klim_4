@@ -15,8 +15,8 @@ namespace projecten3_1920_backend_klim03.Data.Mapping
             builder.ToTable("PupilGroup");
 
             builder.HasKey(ep => new { ep.PupilId, ep.GroupId });
-            builder.HasOne(ep => ep.Pupil).WithMany(p => p.PupilGroups).HasForeignKey(ep => ep.PupilId).OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(ep => ep.Group).WithMany(e => e.PupilGroups).HasForeignKey(ep => ep.GroupId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(ep => ep.Pupil).WithMany(p => p.PupilGroups).HasForeignKey(ep => ep.PupilId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(ep => ep.Group).WithMany(e => e.PupilGroups).HasForeignKey(ep => ep.GroupId).OnDelete(DeleteBehavior.Cascade);
 
         }
     }

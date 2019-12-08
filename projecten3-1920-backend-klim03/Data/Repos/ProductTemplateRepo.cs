@@ -12,11 +12,13 @@ namespace projecten3_1920_backend_klim03.Data.Repos
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<ProductTemplate> _productTemplates;
+        private readonly DbSet<CategoryTemplate> _categoryTemplates;
 
         public ProductTemplateRepo(ApplicationDbContext dbContext)
         {
             _context = dbContext;
             _productTemplates = dbContext.ProductTemplates;
+            _categoryTemplates = dbContext.CategoryTemplates;
         }
 
         public void Add(ProductTemplate obj)
@@ -31,7 +33,7 @@ namespace projecten3_1920_backend_klim03.Data.Repos
 
         public ProductTemplate GetById(long id)
         {
-            throw new NotImplementedException();
+            return _productTemplates.Where(p => p.ProductTemplateId == id).Include(p => p.ProductVariationTemplates).Include(p => p.CategoryTemplate).SingleOrDefault();
         }
 
         public ICollection<ProductTemplate> GetBySchoolIdWithTemplatesAndGoTemplates(long schoolId)
@@ -42,6 +44,16 @@ namespace projecten3_1920_backend_klim03.Data.Repos
         public void Remove(ProductTemplate obj)
         {
             _context.Remove(obj);
+        }
+
+        public ICollection<CategoryTemplate> GetAllCategories()
+        {
+            return _categoryTemplates.ToList();
+        }
+
+        public CategoryTemplate getCategoryById(long categoryTemplateId)
+        {
+            return _categoryTemplates.Where(c => c.CategoryTemplateId == categoryTemplateId).SingleOrDefault();
         }
 
         public void SaveChanges()

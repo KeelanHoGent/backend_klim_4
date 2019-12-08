@@ -17,7 +17,6 @@ namespace projecten3_1920_backend_klim03.Data.Mapping
 
             builder.HasOne(g => g.Order).WithOne(g => g.Group).HasForeignKey<Order>(g => g.GroupId);
             builder.HasMany(g => g.Evaluations).WithOne(g => g.Group).HasForeignKey(g => g.GroupId);
-
         }
     }
 }
