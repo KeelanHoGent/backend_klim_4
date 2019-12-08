@@ -169,8 +169,39 @@ namespace projecten3_1920_backend_klim03.Controllers
 
         }
 
+        [HttpGet("getClassrooms/{schoolId}")]
+        public ActionResult<ICollection<ClassRoomDTO>> getClassrooms(long schoolId)
+        {
+            try
+            {
+                School s = _schools.GetByIdWithClassrooms(schoolId);
 
+                return s.ClassRooms.Select(c => new ClassRoomDTO(c)).ToList();
+                
+            } catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("School niet gevonden"));
+            }
+        }
 
+        [HttpPost("addClassroom/{schoolId}")]
+        public ActionResult<ClassRoomDTO> AddClassroom([FromBody]ClassRoomDTO classroom, long schoolId)
+        {
+            try
+            {
+                School s = _schools.GetByIdWithClassrooms(schoolId);
+                ClassRoom classR = new ClassRoom(classroom, schoolId);
+                s.addClassroom(classR);
+
+                _schools.SaveChanges();
+
+                return new ClassRoomDTO(classR);
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("School niet gevonden"));
+            }
+        }
 
 
     }

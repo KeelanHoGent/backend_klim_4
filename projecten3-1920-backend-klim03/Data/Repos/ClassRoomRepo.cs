@@ -33,6 +33,7 @@ namespace projecten3_1920_backend_klim03.Data.Repos
         public ClassRoom GetById(long id)
         {
             return _classRooms    
+                .Include(c => c.Pupils)
                 .SingleOrDefault(g => g.ClassRoomId == id);
         }
 

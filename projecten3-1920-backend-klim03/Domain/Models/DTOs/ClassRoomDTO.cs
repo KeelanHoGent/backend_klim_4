@@ -16,6 +16,8 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
 
         public ICollection<ProjectDTO> Projects { get; set; } = new List<ProjectDTO>();
 
+        public ICollection<PupilDTO> Pupils { get; set; } = new List<PupilDTO>();
+
         public ClassRoomDTO()
         {
 
@@ -27,6 +29,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
             Name = c.Name;
             SchoolId = c.SchoolId;
             Projects = c.Projects.Select(g => new ProjectDTO(g)).ToList();
+            Pupils = c.Pupils.Select(p => new PupilDTO(p)).ToList();
         }
     }
 }

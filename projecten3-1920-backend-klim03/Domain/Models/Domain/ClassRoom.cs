@@ -1,4 +1,5 @@
-﻿using System;
+﻿using projecten3_1920_backend_klim03.Domain.Models.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public ICollection<Project> Projects { get; set; } = new List<Project>();
 
+        public ICollection<Pupil> Pupils { get; set; } = new List<Pupil>();
 
 
         public void AddProject(Project p)
@@ -23,9 +25,21 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             Projects.Add(p);
         }
 
+        public void addPupil(Pupil pupil)
+        {
+            Pupils.Add(pupil);
+        }
+
         public ClassRoom()
         {
 
+        }
+
+        public ClassRoom(ClassRoomDTO classroom, long schoolId)
+        {
+            Name = classroom.Name;
+            SchoolId = schoolId;
+            Pupils = classroom.Pupils.Select(p => new Pupil(p, schoolId)).ToList();
         }
 
 

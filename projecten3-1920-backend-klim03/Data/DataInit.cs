@@ -112,6 +112,37 @@ namespace projecten3_1920_backend_klim03.Data
                 };
                 schoolGO.ClassRooms.Add(cr);
 
+                ClassRoom cr2 = new ClassRoom
+                {
+                    Name = "5B",
+                    SchoolId = schoolGO.SchoolId
+                };
+                cr2.addPupil(new Pupil
+                {
+                    FirstName = "Thomas",
+                    Surname = "Schuddinck",
+                    SchoolId = schoolGO.SchoolId
+                });
+                cr2.addPupil(new Pupil
+                {
+                    FirstName = "Sofie",
+                    Surname = "Seru",
+                    SchoolId = schoolGO.SchoolId
+                });
+                cr2.addPupil(new Pupil
+                {
+                    FirstName = "Keelan",
+                    Surname = "Savat",
+                    SchoolId = schoolGO.SchoolId
+                });
+                cr2.addPupil(new Pupil
+                {
+                    FirstName = "Florian",
+                    Surname = "Landuyt",
+                    SchoolId = schoolGO.SchoolId
+                });
+                schoolGO.ClassRooms.Add(cr2);
+
                 #region ProductTemplates
 
                 ProductTemplate pt1 = new ProductTemplate

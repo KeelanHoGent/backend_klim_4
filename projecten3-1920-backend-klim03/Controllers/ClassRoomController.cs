@@ -21,6 +21,20 @@ namespace projecten3_1920_backend_klim03.Controllers
             _classRooms = classRooms;
         }
 
+        [HttpGet("{classroomId}")]
+        public ActionResult<ClassRoomDTO> GetClassroom(long classroomId)
+        {
+            try
+            {
+                return new ClassRoomDTO(_classRooms.GetById(classroomId));
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("klas niet gevonden"));
+            }
+
+        }
+
         /// <summary>
         /// Get the classRoom with its projects for given id
         /// </summary>
@@ -85,6 +99,27 @@ namespace projecten3_1920_backend_klim03.Controllers
             {
 
                 return NotFound(new CustomErrorDTO("Klas niet gevonden"));
+            }
+           
+        }
+
+        /// <summary>
+        /// Deletes a classroom
+        /// </summary>
+        /// <param name="classroomId">the id of the classroom to be deleted</param>
+        [HttpDelete("{classroomId}")]
+        public ActionResult<ClassRoomDTO> DeleteProject(long classroomId)
+        {
+            try
+            {
+                var delClassroom = _classRooms.GetById(classroomId);
+                _classRooms.Remove(delClassroom);
+                _classRooms.SaveChanges();
+                return new ClassRoomDTO(delClassroom);
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("Product concept niet gevonden"));
             }
 
         }
