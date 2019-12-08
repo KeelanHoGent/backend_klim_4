@@ -180,19 +180,19 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
                 {
                     RemoveGroup(group);
                 }
-                else // the product is still present in both arrays so update the product
+                else // the group is still present in both arrays so update the product
                 {
                     group.GroupName = groupMatch.GroupName;
-
                     group.UpdatePupilGroup(groupMatch.Pupils, schoolId);
                 }
             }
 
-            foreach (var item in grs) //adds groups that have not been assigned an ID yet(long is default 0)
+            foreach (var item in grs) // //adds groups that have not been assigned an ID yet(long is default 0)
             {
                 if (item.GroupId == 0)
                 {
-                    AddGroup(new Group(item, schoolId));
+                    var gr = new Group(item, schoolId);
+                    Groups.Add(gr);
                 }
             }
         }

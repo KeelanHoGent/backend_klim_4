@@ -61,6 +61,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
 
             Products = project.Products.Select(g => new ProductDTO(g)).ToList();
             Groups = project.Groups.Select(g => new GroupDTO(g)).ToList();
+
             EvaluationCritereas = project.EvaluationCritereas.Select(g => new EvaluationCritereaDTO(g)).ToList();
         }
 
