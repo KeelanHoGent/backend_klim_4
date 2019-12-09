@@ -51,7 +51,7 @@ namespace projecten3_1920_backend_klim03.Controllers
             {
                 return NotFound(new CustomErrorDTO("Klas niet gevonden"));
             }
-            
+
         }
 
         /// <summary>
@@ -89,8 +89,6 @@ namespace projecten3_1920_backend_klim03.Controllers
                 Project p = new Project(dto, cr.SchoolId);
 
 
-              
-
                 cr.AddProject(p);
 
 
@@ -99,7 +97,7 @@ namespace projecten3_1920_backend_klim03.Controllers
             }
             catch (ArgumentNullException)
             {
-            
+
                 return NotFound(new CustomErrorDTO("Klas niet gevonden"));
             }
            
@@ -123,6 +121,7 @@ namespace projecten3_1920_backend_klim03.Controllers
             {
                 return NotFound(new CustomErrorDTO("Product concept niet gevonden"));
             }
+
         }
     }
 }
