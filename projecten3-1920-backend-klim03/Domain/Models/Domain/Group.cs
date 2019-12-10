@@ -57,6 +57,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public void AddPupil(Pupil p)
         {
+            Console.WriteLine(p);
             PupilGroups.Add(new PupilGroup
             {
                 Pupil = p,
@@ -106,6 +107,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public void UpdatePupilGroup(ICollection<PupilDTO> pupils, long schoolId)
         {
+
             foreach (var pupilGroup in PupilGroups)
             {
                 var pupilMatch = pupils.FirstOrDefault(p => p.PupilId == pupilGroup.PupilId);
