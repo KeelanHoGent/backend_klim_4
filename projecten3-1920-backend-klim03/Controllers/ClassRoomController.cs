@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using projecten3_1920_backend_klim03.Domain.Models.Domain;
 using projecten3_1920_backend_klim03.Domain.Models.DTOs;
 using projecten3_1920_backend_klim03.Domain.Models.Interfaces;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace projecten3_1920_backend_klim03.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")] // misschien niet nodig als je vanuit een groep gaat
     [ApiController]
     [ApiConventionType(typeof(DefaultApiConventions))]
@@ -21,6 +24,7 @@ namespace projecten3_1920_backend_klim03.Controllers
             _classRooms = classRooms;
         }
 
+        [AllowAnonymous]
         [HttpGet("{classroomId}")]
         public ActionResult<ClassRoomDTO> GetClassroom(long classroomId)
         {
@@ -40,6 +44,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// </summary>
         /// <param name="classRoomId">the id of the classroom</param>
         /// <returns>The classroom with its projects</returns>
+        [AllowAnonymous]
         [HttpGet("withProjects/{classRoomId}")]
         public ActionResult<ClassRoomDTO> GetClassRoomWithProjects(long classRoomId)
         {
@@ -59,6 +64,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// </summary>
         /// <param name="classRoomId">the id of the classroom</param>
         /// <returns>the projects of a classroom</returns>
+        [AllowAnonymous]
         [HttpGet("projects/{classRoomId}")]
         public ActionResult<ICollection<ProjectDTO>> ProjectFromClassroom(long classRoomId)
         {
@@ -80,6 +86,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// <param name="dto">The project details</param>
         /// <param name="classRoomId">the id of the classroom</param>
         /// <returns>The added project</returns>
+        [AllowAnonymous]
         [HttpPost("addProject/{classRoomId}")]
         public ActionResult<ProjectDTO> AddProject([FromBody]ProjectDTO dto, long classRoomId)
         {
@@ -107,6 +114,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// Deletes a classroom
         /// </summary>
         /// <param name="classroomId">the id of the classroom to be deleted</param>
+        [AllowAnonymous]
         [HttpDelete("{classroomId}")]
         public ActionResult<ClassRoomDTO> DeleteProject(long classroomId)
         {
