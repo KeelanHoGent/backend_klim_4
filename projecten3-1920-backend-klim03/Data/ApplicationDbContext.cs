@@ -13,6 +13,7 @@ namespace projecten3_1920_backend_klim03.Data
 {
     public class ApplicationDbContext : IdentityDbContext<AppUser, ApplicationRole, int, IdentityUserClaim<int>, IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
+        
         public DbSet<Adres> Adresses { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
@@ -38,7 +39,7 @@ namespace projecten3_1920_backend_klim03.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
+  
             builder.ApplyConfiguration(new AdresConfig());
             builder.ApplyConfiguration(new OrderConfig());
             builder.ApplyConfiguration(new CategoryConfig());

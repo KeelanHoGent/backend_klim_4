@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using projecten3_1920_backend_klim03.Domain.Models;
 using projecten3_1920_backend_klim03.Domain.Models.Domain;
 using projecten3_1920_backend_klim03.Domain.Models.DTOs;
 using projecten3_1920_backend_klim03.Domain.Models.DTOs.AppDTOs;
@@ -7,7 +9,7 @@ using projecten3_1920_backend_klim03.Domain.Models.Interfaces;
 
 namespace projecten3_1920_backend_klim03.Controllers
 {
-    [Route("api/[controller]")] 
+    [Route("api/[controller]")]
     [ApiController]
     [ApiConventionType(typeof(DefaultApiConventions))]
     public class GroupController : ControllerBase
@@ -37,7 +39,7 @@ namespace projecten3_1920_backend_klim03.Controllers
             {
                 return NotFound(new CustomErrorDTO("Groep niet gevonden"));
             }
-            
+
         }
 
 
@@ -70,7 +72,8 @@ namespace projecten3_1920_backend_klim03.Controllers
         {
             try
             {
-                return new AppGroupDTO(_groups.GetByUniqueGroupCodeWithProjectAndOrder(groupCode));
+                Group test = _groups.GetByUniqueGroupCodeWithProjectAndOrder(groupCode);
+                return new AppGroupDTO(test);
             }
             catch (ArgumentNullException)
             {
@@ -166,7 +169,7 @@ namespace projecten3_1920_backend_klim03.Controllers
                     _groups.SaveChanges();
 
                     return new EvaluationDTO(ev);
-                } 
+                }
                 return NotFound(new CustomErrorDTO("Een standaard evaluatie criteria kan je niet verwijderen!")); // dit moet een betere statuscode teruggeven
             }
             catch (ArgumentNullException)
@@ -175,7 +178,28 @@ namespace projecten3_1920_backend_klim03.Controllers
             }
         }
 
+        [HttpPut("changePupils/{groupId}")]
+        public ActionResult<AppGroupDTO> ChangePupils([FromBody]AppGroupDTO dto, long groupId)
+        {
+            try
+            {
 
+
+                Group g = _groups.GetById(groupId);
+                foreach (PupilDTO pup in dto.Pupils)
+                {
+                    g.UpdatePupil(new Pupil(pup, 1));
+                }
+
+                _groups.SaveChanges();
+
+                return new AppGroupDTO(g);
+
+            } catch(ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("Groep niet gevonden"));
+            }
+        }
 
 
     }

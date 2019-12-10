@@ -1,4 +1,5 @@
 ﻿using projecten3_1920_backend_klim03.Domain.Models.Domain;
+using projecten3_1920_backend_klim03.Domain.Models.Domain.ManyToMany;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,12 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs.AppDTOs
         public long ProjectId { get; set; }
 
         public OrderDTO Order { get; set; }
+
         public AppProjectDTO Project { get; set; }
 
-
-
         public string UniqueGroupCode { get; set; }
+
+        public ICollection<PupilDTO> Pupils { get; set; }
 
         public AppGroupDTO()
         {
@@ -38,7 +40,12 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs.AppDTOs
             if (group.Project != null)
             {
                 Project = new AppProjectDTO(group.Project);
-            }          
+            }
+            Pupils = new List<PupilDTO>();
+            foreach(PupilGroup pupilGroup in group.PupilGroups)
+            {
+                Pupils.Add(new PupilDTO(pupilGroup.Pupil));
+            }
         }
     }
 }
