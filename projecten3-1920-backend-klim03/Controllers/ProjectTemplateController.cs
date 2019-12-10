@@ -75,7 +75,9 @@ namespace projecten3_1920_backend_klim03.Controllers
                 pt.ProjectDescr = dto.ProjectDescr;
                 pt.ProjectImage = dto.ProjectImage;
                 pt.ApplicationDomainId = dto.ApplicationDomainId;
-
+                pt.Budget = dto.Budget;
+                pt.MaxScore = dto.MaxScore;
+                
                 pt.UpdateProductTemplates(dto.ProductTemplates, true); // boolean(addedByGO) dependant on logged in user
 
                 _projectTemplates.SaveChanges();

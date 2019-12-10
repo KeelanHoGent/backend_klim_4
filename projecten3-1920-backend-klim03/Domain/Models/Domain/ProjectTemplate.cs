@@ -37,9 +37,9 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             ProjectName = dto.ProjectName;
             ProjectDescr = dto.ProjectDescr;
             ProjectImage = dto.ProjectImage;
-            AddedByGO = addedByGO;
             Budget = dto.Budget;
             MaxScore = dto.MaxScore;
+            AddedByGO = addedByGO;
             ApplicationDomainId = dto.ApplicationDomainId;
         }
 
