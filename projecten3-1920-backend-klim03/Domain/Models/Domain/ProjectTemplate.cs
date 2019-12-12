@@ -41,6 +41,9 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             MaxScore = dto.MaxScore;
             AddedByGO = addedByGO;
             ApplicationDomainId = dto.ApplicationDomainId;
+            
+            
+
         }
 
 
@@ -58,36 +61,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
         }
 
 
-        public void UpdateProductTemplates(ICollection<ProductTemplateDTO> prts, bool addedByGo)
-        {
-            foreach (var item in ProductTemplateProjectTemplates.ToList())
-            {
-                var productTemplateMatch = prts.FirstOrDefault(g => g.ProductTemplateId == item.ProductTemplateId);
-                if (productTemplateMatch == null) // the product has been removed by the user
-                {
-                    RemoveProductTemplate(item);
-                }
-                else // the product is still present in both arrays so update the product
-                {
-                    item.ProductTemplate.ProductName = productTemplateMatch.ProductName;
-                    item.ProductTemplate.Description = productTemplateMatch.Description;
-                    item.ProductTemplate.ProductImage = productTemplateMatch.ProductImage;
-                    
-                    item.ProductTemplate.CategoryTemplateId = productTemplateMatch.CategoryTemplateId;
-
-                    item.ProductTemplate.UpdateVariations(productTemplateMatch.ProductVariationTemplates);
-
-                }
-            }
-
-            foreach (var item in prts) // adds products that have not been assigned an ID yet (long is default 0)
-            {
-                if (item.ProductTemplateId == 0)
-                {
-                    AddProductTemplate(new ProductTemplate(item, addedByGo)); 
-                }
-            }
-        }
+        
 
 
 

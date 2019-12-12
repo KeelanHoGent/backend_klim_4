@@ -16,9 +16,12 @@ namespace projecten3_1920_backend_klim03.Controllers
     {
         private readonly IProjectTemplateRepo _projectTemplates;
 
-        public ProjectTemplateController(IProjectTemplateRepo projectTemplates)
+        private readonly IProductTemplateRepo _productTemplates;
+
+        public ProjectTemplateController(IProjectTemplateRepo projectTemplates, IProductTemplateRepo productTemplates)
         {
             _projectTemplates = projectTemplates;
+            _productTemplates = productTemplates;
         }
 
         /// <summary>
@@ -78,7 +81,7 @@ namespace projecten3_1920_backend_klim03.Controllers
                 pt.Budget = dto.Budget;
                 pt.MaxScore = dto.MaxScore;
                 
-                pt.UpdateProductTemplates(dto.ProductTemplates, true); // boolean(addedByGO) dependant on logged in user
+                UpdateProductTemplates(projectTemplateId, dto.ProductTemplates); // boolean(addedByGO) dependant on logged in user
 
                 _projectTemplates.SaveChanges();
                 return new ProjectTemplateDTO(pt);
@@ -88,6 +91,44 @@ namespace projecten3_1920_backend_klim03.Controllers
                 return NotFound(new CustomErrorDTO("Project concept niet gevonden"));
             }
           
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public void UpdateProductTemplates(long id, ICollection<ProductTemplateDTO> prts)
+        {
+            var project = _projectTemplates.GetById(id);
+            foreach (var item in project.ProductTemplateProjectTemplates.ToList())
+            {
+                var productTemplateMatch = prts.FirstOrDefault(g => g.ProductTemplateId == item.ProductTemplateId);
+                if (productTemplateMatch == null) // the product has been removed by the user
+                {
+                   project.RemoveProductTemplate(item);
+                }
+                else // the product is still present in both arrays so update the product
+                {
+                    item.ProductTemplate.ProductName = productTemplateMatch.ProductName;
+                    item.ProductTemplate.Description = productTemplateMatch.Description;
+                    item.ProductTemplate.ProductImage = productTemplateMatch.ProductImage;
+
+                    item.ProductTemplate.CategoryTemplateId = productTemplateMatch.CategoryTemplateId;
+
+
+                    item.ProductTemplate.UpdateVariations(productTemplateMatch.ProductVariationTemplates);
+
+                }
+            }
+
+            foreach (var item in prts.ToList()) // adds products that have been added to this template
+            {
+
+                var productTemplateMatch = project.ProductTemplateProjectTemplates.FirstOrDefault(g => g.ProductTemplateId == item.ProductTemplateId);
+                if (productTemplateMatch == null) // the product is just added
+                {
+                    
+                    project.AddProductTemplate(_productTemplates.GetById(item.ProductTemplateId));
+                }
+
+            }
         }
 
 
