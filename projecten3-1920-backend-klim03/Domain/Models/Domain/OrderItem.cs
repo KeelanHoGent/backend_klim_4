@@ -32,6 +32,14 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             ProductId = dto.ProductId;
         }
 
+        public void SubstractOne()
+        {
+            Amount--;
+        }
 
+        public void AddOne()
+        {
+            Amount++;
+        }
     }
 }
