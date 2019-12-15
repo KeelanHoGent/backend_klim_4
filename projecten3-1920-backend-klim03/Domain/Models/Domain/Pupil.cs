@@ -16,12 +16,11 @@ namespace projecten3_1920_backend_klim03.Domain.Models
         public string FirstName { get; set; }
         public string Surname { get; set; }
 
-        //te restrictief?
-        /*public long ClassRoomId { get; set; } 
-        public ClassRoom ClassRoom { get; set; }*/
+        public long ClassRoomId { get; set; } 
+        public ClassRoom ClassRoom { get; set; }
 
-        public long SchoolId { get; set; }
-        public School School { get; set; }
+        //public long SchoolId { get; set; }
+        //public School School { get; set; }
 
         public List<PupilGroup> PupilGroups { get; set; } = new List<PupilGroup>();
 
@@ -31,13 +30,13 @@ namespace projecten3_1920_backend_klim03.Domain.Models
 
         }
 
-        public Pupil(PupilDTO dto,long schoolId)
+        public Pupil(PupilDTO dto,long classRoomId)
         {
             PupilId = dto.PupilId;
             FirstName = dto.FirstName;
             Surname = dto.Surname;
 
-            SchoolId = schoolId;
+            ClassRoomId = classRoomId;
         }
 
 

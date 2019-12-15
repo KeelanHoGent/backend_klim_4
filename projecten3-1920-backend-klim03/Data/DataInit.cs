@@ -121,25 +121,25 @@ namespace projecten3_1920_backend_klim03.Data
                 {
                     FirstName = "Thomas",
                     Surname = "Schuddinck",
-                    SchoolId = schoolGO.SchoolId
+                    ClassRoomId = cr2.ClassRoomId
                 });
                 cr2.addPupil(new Pupil
                 {
                     FirstName = "Sofie",
                     Surname = "Seru",
-                    SchoolId = schoolGO.SchoolId
+                    ClassRoomId = cr2.ClassRoomId
                 });
                 cr2.addPupil(new Pupil
                 {
                     FirstName = "Keelan",
                     Surname = "Savat",
-                    SchoolId = schoolGO.SchoolId
+                    ClassRoomId = cr2.ClassRoomId
                 });
                 cr2.addPupil(new Pupil
                 {
                     FirstName = "Florian",
                     Surname = "Landuyt",
-                    SchoolId = schoolGO.SchoolId
+                    ClassRoomId = cr2.ClassRoomId
                 });
                 schoolGO.ClassRooms.Add(cr2);
 
@@ -580,8 +580,8 @@ namespace projecten3_1920_backend_klim03.Data
                 {
                         FirstName = "Daan",
                         Surname = "Dedecker",
-                        SchoolId = schoolGO.SchoolId
-                        
+                        ClassRoomId = cr.ClassRoomId
+
                 });
 
                 groep1.AddPupil(
@@ -589,7 +589,7 @@ namespace projecten3_1920_backend_klim03.Data
                 {
                     FirstName = "Rambo",
                     Surname = "Jansens",
-                    SchoolId = schoolGO.SchoolId
+                    ClassRoomId = cr.ClassRoomId
 
                 });
 
@@ -598,7 +598,7 @@ namespace projecten3_1920_backend_klim03.Data
                 {
                     FirstName = "Piet",
                     Surname = "Petter",
-                    SchoolId = schoolGO.SchoolId
+                    ClassRoomId = cr.ClassRoomId
                 });
 
 

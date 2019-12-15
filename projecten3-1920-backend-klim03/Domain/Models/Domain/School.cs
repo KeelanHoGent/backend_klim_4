@@ -18,7 +18,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
         public Adres Adres { get; set; }
 
         public ICollection<ClassRoom> ClassRooms { get; set; } = new List<ClassRoom>();
-        public ICollection<Pupil> Pupils { get; set; } = new List<Pupil>();
+        //public ICollection<Pupil> Pupils { get; set; } = new List<Pupil>();
 
         public ICollection<ProjectTemplate> ProjectTemplates { get; set; } = new List<ProjectTemplate>();
         public ICollection<ProductTemplate> ProductTemplates { get; set; } = new List<ProductTemplate>();
@@ -38,10 +38,10 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         }
 
-        public void AddPupil(Pupil p)
-        {
-            Pupils.Add(p);
-        }
+        //public void AddPupil(Pupil p)
+        //{
+        //    Pupils.Add(p);
+        //}
 
         public void AddProjectTemplate(ProjectTemplate pt)
         {

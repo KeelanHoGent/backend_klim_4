@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using projecten3_1920_backend_klim03.Domain.Models;
 using projecten3_1920_backend_klim03.Domain.Models.Domain;
 using projecten3_1920_backend_klim03.Domain.Models.DTOs;
 using projecten3_1920_backend_klim03.Domain.Models.Interfaces;
@@ -131,5 +132,27 @@ namespace projecten3_1920_backend_klim03.Controllers
             }
 
         }
+
+        [AllowAnonymous]
+        [HttpPost("addPupil/{classRoomId}")]
+        public ActionResult<PupilDTO> AddPupil([FromBody]PupilDTO pupil, long classroomId)
+        {
+            try
+            {
+                ClassRoom cls = _classRooms.GetById(classroomId);
+                Pupil pup = new Pupil(pupil, classroomId);
+                cls.addPupil(pup);
+
+                _classRooms.SaveChanges();
+
+                return new PupilDTO(pup);
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("klas niet gevonden"));
+            }
+        }
     }
+
+
 }

@@ -8,7 +8,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Interfaces
 {
     public interface IPupilRepo : IGenericRepo<Pupil>
     {
-        bool PupilExistsInSchool(string firstname, string surname, long schoolId);
-        Pupil GetByNameInSchool(string firstname, string surname, long schoolId);
+        //bool PupilExistsInSchool(string firstname, string surname, long schoolId);
+        //Pupil GetByNameInSchool(string firstname, string surname, long schoolId);
     }
 }
