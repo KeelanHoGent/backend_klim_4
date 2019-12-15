@@ -152,6 +152,26 @@ namespace projecten3_1920_backend_klim03.Controllers
                 return NotFound(new CustomErrorDTO("klas niet gevonden"));
             }
         }
+
+        [AllowAnonymous]
+        [HttpDelete("removePupil/{classroomId}")]
+        public ActionResult<PupilDTO> RemovePupil([FromBody]PupilDTO pupil, long classroomId)
+        {
+            try
+            {
+                ClassRoom cls = _classRooms.GetById(classroomId);
+                Pupil pup = cls.getPupilFromDto(pupil);
+                cls.removePupil(pup);
+
+                _classRooms.SaveChanges();
+
+                return new PupilDTO(pup);
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("Leerling niet gevonden"));
+            }
+        }
     }
 
 

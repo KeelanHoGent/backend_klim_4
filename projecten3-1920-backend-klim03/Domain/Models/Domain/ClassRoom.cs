@@ -30,6 +30,17 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             Pupils.Add(pupil);
         }
 
+        public void removePupil(Pupil pupil)
+        {
+            //Pupil pup = Pupils.FirstOrDefault(p => p.FirstName == pupil.FirstName && p.Surname == pupil.Surname);
+            Pupils.Remove(pupil);
+        }
+
+        public Pupil getPupilFromDto(PupilDTO pupil)
+        {
+            return Pupils.FirstOrDefault(p => p.FirstName == pupil.FirstName && p.Surname == pupil.Surname);
+        }
+
         public ClassRoom()
         {
 
