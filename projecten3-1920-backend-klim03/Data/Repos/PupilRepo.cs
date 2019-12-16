@@ -36,15 +36,15 @@ namespace projecten3_1920_backend_klim03.Data.Repos
             throw new NotImplementedException();
         }
 
-        public Pupil GetByNameInSchool(string firstname, string surname, long schoolId)
-        {
-            return _pupils.FirstOrDefault(g => g.FirstName == firstname && g.Surname == surname && g.SchoolId == schoolId);
-        }
+        //public Pupil GetByNameInSchool(string firstname, string surname, long schoolId)
+        //{
+        //    return _pupils.FirstOrDefault(g => g.FirstName == firstname && g.Surname == surname && g.SchoolId == schoolId);
+        //}
 
-        public bool PupilExistsInSchool(string firstname, string surname, long schoolId)
-        {
-            return _pupils.Any(g => g.FirstName == firstname && g.Surname == surname && g.SchoolId == schoolId);
-        }
+        //public bool PupilExistsInSchool(string firstname, string surname, long schoolId)
+        //{
+        //    return _pupils.Any(g => g.FirstName == firstname && g.Surname == surname && g.SchoolId == schoolId);
+        //}
 
         public void Remove(Pupil obj)
         {
