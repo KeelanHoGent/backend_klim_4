@@ -17,11 +17,14 @@ namespace projecten3_1920_backend_klim03.Controllers
     {
         private readonly ISchoolRepo _schools;
         private readonly IProductTemplateRepo _productTemplateRepo;
+        private readonly IProjectTemplateRepo _projectTemplateRepo;
+        private ProjectTemplate currentTemplate;
 
-        public SchoolController(ISchoolRepo schools, IProductTemplateRepo productTemplateRepo)
+        public SchoolController(ISchoolRepo schools, IProductTemplateRepo productTemplateRepo, IProjectTemplateRepo projectTemplateRepo)
         {
             _schools = schools;
             _productTemplateRepo = productTemplateRepo;
+            _projectTemplateRepo = projectTemplateRepo;
         }
 
 
@@ -95,7 +98,11 @@ namespace projecten3_1920_backend_klim03.Controllers
             {
                 School s = _schools.GetById(schoolId);
                 ProjectTemplate pt = new ProjectTemplate(dto, true); // boolean (addedByGO) dependant on logged in user
-
+                currentTemplate = pt; // set as temperary current projecttemplate
+                if(dto.ProductTemplates.Count > 0)
+                {
+                    InitProductTemplates(dto.ProductTemplates);
+                }
                 s.AddProjectTemplate(pt);
                 _schools.SaveChanges();
 
@@ -106,6 +113,19 @@ namespace projecten3_1920_backend_klim03.Controllers
                 return NotFound(new CustomErrorDTO("School niet gevonden"));
             }
            
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public void InitProductTemplates(ICollection<ProductTemplateDTO> prts)
+        {
+            var project = currentTemplate;
+            
+            foreach (var item in prts.ToList()) // adds products that have been added to this template
+            {
+                project.AddProductTemplate(_productTemplateRepo.GetById(item.ProductTemplateId));
+                
+
+            }
         }
 
         /// <summary>

@@ -19,8 +19,8 @@ namespace projecten3_1920_backend_klim03.Domain.Models.DTOs
         public ApplicationDomainDTO ApplicationDomain { get; set; }
 
         public ICollection<ProductTemplateDTO> ProductTemplates { get; set; } = new List<ProductTemplateDTO>();
-        public int MaxScore { get; internal set; }
-        public int Budget { get; internal set; }
+        public int MaxScore { get; set; }
+        public int Budget { get; set; }
 
         public ProjectTemplateDTO()
         {
