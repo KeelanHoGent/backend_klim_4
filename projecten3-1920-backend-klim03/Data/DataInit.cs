@@ -521,7 +521,6 @@ namespace projecten3_1920_backend_klim03.Data
                     ESchoolGrade = ESchoolGrade.ALGEMEEN,
                 };
 
-                project2.AddProduct(pr1);
                 project2.AddProduct(pr2);
                 project2.AddProduct(pr3);
                 project2.AddProduct(pr4);

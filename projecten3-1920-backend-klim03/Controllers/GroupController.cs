@@ -70,17 +70,17 @@ namespace projecten3_1920_backend_klim03.Controllers
         [HttpGet("project/{groupCode}")]
         public ActionResult<AppGroupDTO> GetGroupWithProjectAndOrder(string groupCode)
         {
-            try
-            {
-                Group test = _groups.GetByUniqueGroupCodeWithProjectAndOrder(groupCode);
-                return new AppGroupDTO(test);
-            }
-            catch (ArgumentNullException)
+
+            Group test = _groups.GetByUniqueGroupCodeWithProjectAndOrder(groupCode);
+
+            if (test == null)
             {
                 return NotFound(new CustomErrorDTO("Groep niet gevonden"));
             }
 
+            return new AppGroupDTO(test);
         }
+            
 
         /// <summary>
         /// Adds an evaluation to a group

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace projecten3_1920_backend_klim03.Controllers
 {
-    [Route("api/[controller]")] 
+    [Route("api/[controller]")]
     [ApiController]
     [ApiConventionType(typeof(DefaultApiConventions))]
     public class OrderItemController : ControllerBase
@@ -45,9 +45,56 @@ namespace projecten3_1920_backend_klim03.Controllers
             {
                 return NotFound(new CustomErrorDTO("Order item niet gevonden"));
             }
-          
+
+        }
+
+        /// <summary>
+        /// Substract one from the amount in order item
+        /// </summary>
+        /// <param name="dto">The modified order item</param>
+        /// <param name="orderItemId">The id of the order item</param>
+        /// <returns>The order item</returns>
+        [HttpPut("substractOne/{orderItemId}")]
+        public ActionResult<RemoveOrAddedOrderItemDTO> substractOrderByOne(long orderItemId)
+        {
+            try
+            {
+                OrderItem oi = _orderItems.GetById(orderItemId);
+                oi.SubstractOne();
+                _orderItems.SaveChanges();
+
+                return new RemoveOrAddedOrderItemDTO(oi.Order, oi);
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("Order item niet gevonden"));
+            }
+
         }
 
 
+        /// <summary>
+        /// Substract one from the amount in order item
+        /// </summary>
+        /// <param name="dto">The modified order item</param>
+        /// <param name="orderItemId">The id of the order item</param>
+        /// <returns>The order item</returns>
+        [HttpPut("addOne/{orderItemId}")]
+        public ActionResult<RemoveOrAddedOrderItemDTO> AddOrderItemByOne(long orderItemId)
+        {
+            try
+            {
+                OrderItem oi = _orderItems.GetById(orderItemId);
+                oi.AddOne();
+                _orderItems.SaveChanges();
+
+                return new RemoveOrAddedOrderItemDTO(oi.Order, oi);
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("Order item niet gevonden"));
+            }
+
+        }
     }
 }
