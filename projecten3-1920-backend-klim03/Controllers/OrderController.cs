@@ -145,5 +145,37 @@ namespace projecten3_1920_backend_klim03.Controllers
                 return NotFound(new CustomErrorDTO("Order niet gevonden"));
             }
         }
+
+        /// <summary>
+        /// clear all order items from order
+        /// </summary>
+        /// <param name="orderId">the id of the order</param>
+        /// <returns>The order</returns>
+        [HttpPut("removeAllOrderItems/{orderId}")]
+        public ActionResult<OrderDTO> RemoveAllOrderItems(long orderId)
+        {
+            try
+            {
+                Order o = _orders.GetById(orderId);
+                o.RemoveAllOrderItems();
+
+                _orders.SaveChanges();
+                return new OrderDTO(o);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                // Orderamount <= 0
+                return BadRequest(new CustomErrorDTO(ex.Message));
+            }
+            catch (ArithmeticException ex)
+            {
+                // Remaining budget < orderamount
+                return BadRequest(new CustomErrorDTO(ex.Message));
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound(new CustomErrorDTO("Order niet gevonden"));
+            }
+        }
     }
 }

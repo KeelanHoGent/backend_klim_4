@@ -88,5 +88,10 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             }
         }
 
+        internal void RemoveAllOrderItems()
+        {
+            if (Submitted) throw new NotSupportedException("It is not allowed to change a submitted order");
+            OrderItems = new List<OrderItem>();
+        }
     }
 }
