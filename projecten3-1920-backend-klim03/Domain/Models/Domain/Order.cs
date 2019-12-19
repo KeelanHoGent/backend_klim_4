@@ -30,7 +30,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public OrderItem AddOrderItem(OrderItem oi)
         {
-            if (Submitted) throw new NotSupportedException("It is not allowed to change a finalized order");
+            if (Submitted) Submitted = false;
 
             if(OrderItems.FirstOrDefault(g => g.ProductId == oi.ProductId) != null)
             {
@@ -45,7 +45,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public void RemoveOrderItem(OrderItem oi)
         {
-            if (Submitted) throw new NotSupportedException("It is not allowed to change a finalized order");
+            if (Submitted) Submitted = false;
             OrderItems.Remove(oi);
         }
 
@@ -59,7 +59,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public void SubmitOrder()
         {
-            Group.PayOrder(GetOrderPrice);
+            //Group.PayOrder(GetOrderPrice);
             Submitted = true;
             Time = DateTime.Now;
         }

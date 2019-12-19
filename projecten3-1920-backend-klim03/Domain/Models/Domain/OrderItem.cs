@@ -34,11 +34,13 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public void SubstractOne()
         {
+            if (Order.Submitted) Order.Submitted = false;
             Amount--;
         }
 
         public void AddOne()
         {
+            if (Order.Submitted) Order.Submitted = false;
             Amount++;
         }
     }
