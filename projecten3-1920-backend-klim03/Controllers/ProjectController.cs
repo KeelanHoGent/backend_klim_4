@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using projecten3_1920_backend_klim03.Domain.Models.DTOs;
 using projecten3_1920_backend_klim03.Domain.Models.Interfaces;
+using projecten3_1920_backend_klim03.Domain.Models.Domain.ManyToMany;
+using projecten3_1920_backend_klim03.Domain.Models;
 
 namespace projecten3_1920_backend_klim03.Controllers
 {
@@ -13,10 +15,12 @@ namespace projecten3_1920_backend_klim03.Controllers
     public class ProjectController : ControllerBase
     {
         private readonly IProjectRepo _projects;
+        private readonly IPupilRepo _pupils;
 
-        public ProjectController(IProjectRepo projects)
+        public ProjectController(IProjectRepo projects, IPupilRepo pupils)
         {
             _projects = projects;
+            _pupils = pupils;
         }
 
         /// <summary>
@@ -26,7 +30,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// <returns>The project</returns>
         [HttpGet("{projectId}")]
         public ActionResult<ProjectDTO> GetProject(long projectId)
-        {          
+        {
             try
             {
                 return new ProjectDTO(_projects.GetById(projectId));
@@ -53,11 +57,11 @@ namespace projecten3_1920_backend_klim03.Controllers
             {
                 return NotFound(new CustomErrorDTO("Project niet gevonden"));
             }
-            
+
         }
 
 
-      
+
         /// <summary>
         /// Get the project with given id
         /// </summary>
@@ -111,6 +115,18 @@ namespace projecten3_1920_backend_klim03.Controllers
             {
                 var p = _projects.GetById(projectId);
 
+                List<Pupil> pupils = new List<Pupil>();
+
+                foreach (var group in dto.Groups)
+                {
+                    foreach (var pupil in group.Pupils)
+                    {
+                        pupils.Add(_pupils.GetById(pupil.PupilId));
+                    }
+                }
+
+
+
                 p.ProjectName = dto.ProjectName;
                 p.ProjectDescr = dto.ProjectDescr;
                 p.ProjectImage = dto.ProjectImage;
@@ -123,7 +139,7 @@ namespace projecten3_1920_backend_klim03.Controllers
                 p.UpdateProducts(dto.Products);
                 p.UpdateGroups(dto.Groups, p.ClassRoom.SchoolId);
                 p.UpdateEvaluationC(dto.EvaluationCritereas);
-                
+
 
                 _projects.SaveChanges();
 
@@ -133,7 +149,7 @@ namespace projecten3_1920_backend_klim03.Controllers
             {
                 return NotFound(new CustomErrorDTO("Project niet gevonden"));
             }
-          
+
         }
 
 
