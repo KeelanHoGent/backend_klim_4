@@ -57,7 +57,7 @@ namespace projecten3_1920_backend_klim03.Data
                 
                 ApplicationDomain informatie = new ApplicationDomain
                 {
-                    ApplicationDomainName = "Informatie & communicactie",
+                    ApplicationDomainName = "Informatie & communicatie",
                     ApplicationDomainDescr = "Alles over informatie & communicactie"
                 };
                 
