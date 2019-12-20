@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using projecten3_1920_backend_klim03.Domain.Models.DTOs;
 using projecten3_1920_backend_klim03.Domain.Models.Interfaces;
 
 namespace projecten3_1920_backend_klim03.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     [ApiConventionType(typeof(DefaultApiConventions))]
@@ -24,6 +27,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// </summary>
         /// <param name="projectId">the id of the project</param>
         /// <returns>The project</returns>
+        [AllowAnonymous]
         [HttpGet("{projectId}")]
         public ActionResult<ProjectDTO> GetProject(long projectId)
         {          
@@ -82,6 +86,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// <param name="projectId">the id of the project that contains the product</param>
         /// <param name="productId">the id of the expected product</param>
         /// <returns>The product</returns>
+        [AllowAnonymous]
         [HttpGet("{projectId}/products/{productId}")]
         public ActionResult<ProductDTO> GetProductFromProject(long projectId, long productId)
         {
