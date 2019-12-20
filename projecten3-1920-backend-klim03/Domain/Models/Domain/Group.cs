@@ -24,7 +24,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
         public ICollection<Evaluation> Evaluations { get; set; } = new List<Evaluation>();
 
         public string GroupCode { get; set; } // this code is not unique so always use UniqueGroupCode
-        public string UniqueGroupCode => GroupId.ToString() + GroupCode;
+        public string UniqueGroupCode =>  GroupCode + GroupId.ToString();
 
         public Group()
         {
@@ -34,7 +34,14 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
         public Group(GroupDTO dto, long schoolId)
         {
             GroupName = dto.GroupName;
-            GroupCode = Guid.NewGuid().ToString().Substring(0, 4);
+            int lengte = 4 - (int)Math.Log10(GroupId);
+            if (lengte < 0)
+            {
+                lengte = 0;
+            }
+            
+            GroupCode = Project.ProjectName.Substring(0,3) + Guid.NewGuid().ToString().Substring(0, lengte);
+
 
             if (dto.Pupils != null)
             {
