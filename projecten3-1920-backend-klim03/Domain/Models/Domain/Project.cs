@@ -78,6 +78,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public Project(ProjectTemplate pt)
         {
+            ProjectName = pt.ProjectName;
             ProjectDescr = pt.ProjectDescr;
             ProjectImage = pt.ProjectImage;
             ESchoolGrade = ESchoolGrade.ALGEMEEN;

@@ -88,23 +88,6 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             };
         }
 
-        public void PayOrder(decimal amount)
-        {
-            if (amount <= 0)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
-            decimal result = Project.ProjectBudget - amount;
-
-            if (result < 0)
-            {
-                throw new ArithmeticException("Result can't be less than 0");
-            }
-
-            // only check for erros when "paying" an order, amount is calculated at runtime
-        }
-
         public void UpdatePupilGroup(ICollection<PupilDTO> pupils, long schoolId)
         {
 

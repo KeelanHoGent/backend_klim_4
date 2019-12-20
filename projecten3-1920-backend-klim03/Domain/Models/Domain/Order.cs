@@ -88,7 +88,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             }
         }
 
-        internal void RemoveAllOrderItems()
+        public void RemoveAllOrderItems()
         {
             OrderItems = new List<OrderItem>();
         }

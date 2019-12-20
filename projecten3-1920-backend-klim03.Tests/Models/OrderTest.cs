@@ -11,13 +11,13 @@ namespace projecten3_1920_backend_klim03.Tests.Models
 {
     public class OrderTest : IDisposable
     {
-        private readonly DummyApplicationDbContext _dummyApplicationDbContext;
+        private readonly DummyApplicationDbContext dummyContext;
         private Order testOrder;
 
         public OrderTest()
         {
-            _dummyApplicationDbContext = new DummyApplicationDbContext();
-            testOrder = _dummyApplicationDbContext.testOrder;
+            dummyContext = new DummyApplicationDbContext();
+            testOrder = dummyContext.testOrder;
         }
 
         [Fact]
@@ -25,16 +25,9 @@ namespace projecten3_1920_backend_klim03.Tests.Models
         {
             int amountBefore = testOrder.OrderItems.Count;
 
-            testOrder.AddOrderItem(_dummyApplicationDbContext.testOrderItem);
+            testOrder.AddOrderItem(dummyContext.testOrderItem);
 
             Assert.Equal(amountBefore + 1, testOrder.OrderItems.Count);
-        }
-
-        [Fact]
-        public void Order_AddItemToSubmittedOrder_ThrowsError()
-        {
-            testOrder.Submitted = true;
-            Assert.Throws<NotSupportedException>(() => testOrder.AddOrderItem(_dummyApplicationDbContext.testOrderItem));
         }
 
         [Fact]
@@ -45,13 +38,6 @@ namespace projecten3_1920_backend_klim03.Tests.Models
             testOrder.RemoveOrderItem(testOrder.OrderItems.First());
 
             Assert.Equal(amountBefore - 1, testOrder.OrderItems.Count);
-        }
-
-        [Fact]
-        public void Order_RemoveItemToSubmittedOrder_ThrowsError()
-        {
-            testOrder.Submitted = true;
-            Assert.Throws<NotSupportedException>(() => testOrder.RemoveOrderItem(testOrder.OrderItems.First()));
         }
 
         [Fact]
@@ -77,9 +63,66 @@ namespace projecten3_1920_backend_klim03.Tests.Models
             Assert.Equal(Convert.ToDecimal(55.5), testOrder.GetOrderPrice, 2);
         }
 
+        [Fact]
+        public void Order_GetOrderPrice_OrderPriceUpdatesWhenAddingItem()
+        {
+            decimal startPrice = testOrder.GetOrderPrice;
+
+            testOrder.AddOrderItem(dummyContext.testOrderItem);
+
+            decimal newOrderTotal = startPrice + Convert.ToDecimal(dummyContext.testOrderItem.Product.Price * dummyContext.testOrderItem.Amount);
+            Assert.Equal(newOrderTotal, testOrder.GetOrderPrice);
+        }
+
+        [Fact]
+        public void Order_GetOrderPrice_OrderPriceUpdatesWhenRemovingItem()
+        {
+            decimal startPrice = testOrder.GetOrderPrice;
+
+            OrderItem oi = dummyContext.testOrder.OrderItems.First();
+            testOrder.RemoveOrderItem(oi);
+
+            decimal newOrderTotal = startPrice - Convert.ToDecimal(oi.Product.Price * oi.Amount);
+            Assert.Equal(newOrderTotal, testOrder.GetOrderPrice);
+        }
+
+       [Fact]
+       public void Order_AddItem_submittedResetsAfterAdding()
+        {
+            testOrder.SubmitOrder();
+
+            Assert.True(testOrder.Submitted);
+
+            testOrder.AddOrderItem(dummyContext.testOrderItem);
+
+            Assert.False(testOrder.Submitted);
+        }
+
+        [Fact]
+        public void Order_AddItem_submittedResetsAfterRemoving()
+        {
+            testOrder.SubmitOrder();
+
+            Assert.True(testOrder.Submitted);
+
+            testOrder.AddOrderItem(testOrder.OrderItems.First());
+
+            Assert.False(testOrder.Submitted);
+        }
+
+        [Fact]
+        public void Order_RemoveAllOrderItems_removesAllOrderItems()
+        {
+            Assert.NotEqual(0, testOrder.OrderItems.Count);
+
+            testOrder.RemoveAllOrderItems();
+
+            Assert.Equal(0, testOrder.OrderItems.Count);
+        }
+
         public void Dispose()
         {
-            testOrder = _dummyApplicationDbContext.testOrder;
+            testOrder = dummyContext.testOrder;
         }
     }
 }
