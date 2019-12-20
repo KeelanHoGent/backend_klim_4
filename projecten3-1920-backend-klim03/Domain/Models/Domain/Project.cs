@@ -147,13 +147,14 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
         public void UpdateEvaluationC(ICollection<EvaluationCritereaDTO> evc)
         {
-            foreach(var item in EvaluationCritereas.ToList())
+            foreach (var item in EvaluationCritereas.ToList())
             {
                 var ecMatch = evc.FirstOrDefault(e => e.EvaluationCritereaId == item.EvaluationCritereaId);
                 if (ecMatch == null)
                 {
                     EvaluationCritereas.Remove(item);
-                } else
+                }
+                else
                 {
                     item.Title = ecMatch.Title;
                 }
@@ -192,7 +193,19 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             {
                 if (item.GroupId == 0)
                 {
-                    var gr = new Group(item, schoolId);
+
+                    List<Pupil> pupils = new List<Pupil>();
+
+                    foreach (var pup in ClassRoom.Pupils)
+                    {
+                        foreach (var p in item.Pupils)
+                        {
+                            if (p.PupilId == pup.PupilId)
+                                pupils.Add(pup);
+                        }
+                    }
+
+                    var gr = new Group(pupils, item, schoolId);
                     Groups.Add(gr);
                 }
             }
@@ -202,3 +215,4 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
 
     }
 }
+

@@ -39,6 +39,41 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             if (dto.Pupils != null)
             {
                 dto.Pupils.Where(g => g.FirstName != "").ToList().ForEach(g => AddPupil(new Pupil(g, schoolId)));
+
+            }
+
+
+            //evaluaties worden pas later toegevoegd
+            /*if (dto.Evaluations != null)
+            {
+                dto.Evaluations.ToList().ForEach(g => AddEvaluation(new Evaluation(g)));
+            }*/ // 
+
+
+
+
+
+            InitOrder();
+        }
+
+        public Group(List<Pupil> pupils, GroupDTO dto, long schoolId)
+        {
+            GroupName = dto.GroupName;
+            GroupCode = Guid.NewGuid().ToString().Substring(0, 4);
+
+            if (dto.Pupils != null)
+            {
+
+                PupilGroups = new List<PupilGroup>();
+                //dto.Pupils.Where(g => g.FirstName != "").ToList().ForEach(g => AddPupil(new Pupil(g, schoolId)));
+                pupils.ForEach(p =>
+                {
+                    PupilGroups.Add(new PupilGroup
+                    {
+                        Pupil = p,
+                        Group = this
+                    });
+                });
             }
 
 
@@ -95,7 +130,7 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
             {
                 var pupilMatch = pupils.FirstOrDefault(p => p.PupilId == pupilGroup.PupilId);
                 // when there is no pupilMatch between the given collection and the db collection, the user deleted the pupil 
-                if (pupilMatch == null) 
+                if (pupilMatch == null)
                 {
                     PupilGroups.Remove(pupilGroup);
                 }
@@ -111,12 +146,13 @@ namespace projecten3_1920_backend_klim03.Domain.Models.Domain
         public void UpdatePupil(Pupil pupil)
         {
             PupilGroup oldPupil = null;
-            if(pupil.PupilId != 0)
+            if (pupil.PupilId != 0)
             {
                 oldPupil = PupilGroups.SingleOrDefault(p => p.PupilId == pupil.PupilId);
                 oldPupil.Pupil.FirstName = pupil.FirstName;
                 oldPupil.Pupil.Surname = pupil.Surname;
-            } else
+            }
+            else
             {
                 PupilGroups.Add(new PupilGroup() { Group = this, GroupId = this.GroupId, Pupil = pupil });
             }
