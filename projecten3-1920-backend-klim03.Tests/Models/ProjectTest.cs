@@ -55,8 +55,10 @@ namespace projecten3_1920_backend_klim03.Tests.Models
 
 
         public void Dispose()
-        {
-            throw new NotImplementedException();
+        { 
+            testProject1 = _dummyApplicationDbContext.testProject;
+            testProjectTemplate1 = _dummyApplicationDbContext.projectTemplate1;
+            testGroup1 = _dummyApplicationDbContext.testGroup;
         }
     }
 }

@@ -46,32 +46,44 @@ namespace projecten3_1920_backend_klim03.Tests.Data
                 Price = 8.5
             };
 
+            Product testP4 = new Product
+            {
+                ProductId = 4,
+                ProductName = "Plakband",
+                Description = "Plakband beschrijving",
+                Price = 15
+            };
+
             OrderItem testOrderItem1 = new OrderItem
             {
                 OrderItemId = 1,
                 Product = testP1,
-                Amount = 2
+                Amount = 2,
+                ProductId = 1
             };
 
             OrderItem testOrderItem2 = new OrderItem
             {
                 OrderItemId = 2,
                 Product = testP2,
-                Amount = 1
+                Amount = 1,
+                ProductId = 2
             };
 
             OrderItem testOrderItem3 = new OrderItem
             {
                 OrderItemId = 3,
                 Product = testP3,
-                Amount = 3
+                Amount = 3,
+                ProductId = 3
             };
 
             testOrderItem = new OrderItem
             {
                 OrderItemId = 4,
-                Product = testP1,
-                Amount = 5
+                Product = testP4,
+                Amount = 5,
+                ProductId = 4
             };
 
             testOrder = new Order
@@ -99,7 +111,7 @@ namespace projecten3_1920_backend_klim03.Tests.Data
                 GroupName = "groepsnaam",
                 Order = testOrder
 
-        };
+            };
 
             testProject = new Project
             {
