@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using projecten3_1920_backend_klim03.Domain.Models;
 using projecten3_1920_backend_klim03.Domain.Models.Domain;
@@ -9,6 +11,7 @@ using projecten3_1920_backend_klim03.Domain.Models.Interfaces;
 
 namespace projecten3_1920_backend_klim03.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     [ApiConventionType(typeof(DefaultApiConventions))]
@@ -67,6 +70,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// </summary>
         /// <param name="groupCode">the code of the group</param>
         /// <returns>The group wit the project</returns>
+        [AllowAnonymous]
         [HttpGet("project/{groupCode}")]
         public ActionResult<AppGroupDTO> GetGroupWithProjectAndOrder(string groupCode)
         {
@@ -178,6 +182,7 @@ namespace projecten3_1920_backend_klim03.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPut("changePupils/{groupId}")]
         public ActionResult<AppGroupDTO> ChangePupils([FromBody]AppGroupDTO dto, long groupId)
         {

@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using projecten3_1920_backend_klim03.Domain.Models.CustomExceptions;
 using projecten3_1920_backend_klim03.Domain.Models.Domain;
@@ -8,6 +10,7 @@ using projecten3_1920_backend_klim03.Domain.Models.Interfaces;
 
 namespace projecten3_1920_backend_klim03.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")] // misschien niet nodig als je vanuit een groep gaat
     [ApiController]
     [ApiConventionType(typeof(DefaultApiConventions))]
@@ -29,6 +32,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// <param name="orderId">the id of the order</param>
         /// <param name="dto">the orderitem to be added</param>
         /// <returns>The order</returns>
+        [AllowAnonymous]
         [HttpPut("addOrderItem/{orderId}")]
         public ActionResult<RemoveOrAddedOrderItemDTO> AddOrderItemToOrder([FromBody] OrderItemDTO dto, long orderId)
         {
@@ -62,6 +66,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// <param name="orderId">the id of the order</param>
         /// <param name="orderItemId">the orderItem with the orderItemId to be removed</param>
         /// <returns>The order</returns>
+        [AllowAnonymous]
         [HttpPut("removeOrderItem/{orderItemId}/{orderId}")]
         public ActionResult<RemoveOrAddedOrderItemDTO> RemoveOrderItemFromOrder(long orderItemId, long orderId)
         {
@@ -96,6 +101,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// </summary>
         /// <param name="orderId">the id of the order</param>
         /// <returns>The order</returns>
+        [AllowAnonymous]
         [HttpPut("submitOrder/{orderId}")]
         public ActionResult<OrderDTO> SubmitOrder(long orderId)
         {
@@ -151,6 +157,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// </summary>
         /// <param name="orderId">the id of the order</param>
         /// <returns>The order</returns>
+        [AllowAnonymous]
         [HttpPut("removeAllOrderItems/{orderId}")]
         public ActionResult<OrderDTO> RemoveAllOrderItems(long orderId)
         {

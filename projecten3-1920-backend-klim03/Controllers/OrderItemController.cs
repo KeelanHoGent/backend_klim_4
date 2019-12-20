@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using projecten3_1920_backend_klim03.Domain.Models.Domain;
 using projecten3_1920_backend_klim03.Domain.Models.DTOs;
 using projecten3_1920_backend_klim03.Domain.Models.DTOs.CustomDTOs;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace projecten3_1920_backend_klim03.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     [ApiConventionType(typeof(DefaultApiConventions))]
@@ -30,6 +33,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// <param name="dto">The modified order item</param>
         /// <param name="orderItemId">The id of the order item</param>
         /// <returns>The order item</returns>
+        [AllowAnonymous]
         [HttpPut("{orderItemId}")]
         public ActionResult<RemoveOrAddedOrderItemDTO> PutOrderItem([FromBody]OrderItemDTO dto, long orderItemId)
         {
@@ -54,6 +58,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// <param name="dto">The modified order item</param>
         /// <param name="orderItemId">The id of the order item</param>
         /// <returns>The order item</returns>
+        [AllowAnonymous]
         [HttpPut("substractOne/{orderItemId}")]
         public ActionResult<RemoveOrAddedOrderItemDTO> substractOrderByOne(long orderItemId)
         {
@@ -79,6 +84,7 @@ namespace projecten3_1920_backend_klim03.Controllers
         /// <param name="dto">The modified order item</param>
         /// <param name="orderItemId">The id of the order item</param>
         /// <returns>The order item</returns>
+        [AllowAnonymous]
         [HttpPut("addOne/{orderItemId}")]
         public ActionResult<RemoveOrAddedOrderItemDTO> AddOrderItemByOne(long orderItemId)
         {
