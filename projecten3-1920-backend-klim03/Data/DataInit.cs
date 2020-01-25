@@ -107,9 +107,39 @@ namespace projecten3_1920_backend_klim03.Data
                 //classroom
                 ClassRoom cr = new ClassRoom
                 {
-                    Name = "Klas 1",
+                    Name = "1A",
                     SchoolId = schoolGO.SchoolId
                 };
+                cr.addPupil(new Pupil
+                 {
+                     FirstName = "Freddie",
+                     Surname = "Trump",
+                     ClassRoomId = cr.ClassRoomId
+                 });
+                cr.addPupil(new Pupil
+                {
+                    FirstName = "Jonas",
+                    Surname = "Bergmans",
+                    ClassRoomId = cr.ClassRoomId
+                });
+                cr.addPupil(new Pupil
+                {
+                    FirstName = "Ron",
+                    Surname = "Merkel",
+                    ClassRoomId = cr.ClassRoomId
+                });
+                cr.addPupil(new Pupil
+                {
+                    FirstName = "Erin",
+                    Surname = "Ceaser",
+                    ClassRoomId = cr.ClassRoomId
+                });
+                cr.addPupil(new Pupil
+                {
+                    FirstName = "Lisa",
+                    Surname = "Toek",
+                    ClassRoomId = cr.ClassRoomId
+                });
                 schoolGO.ClassRooms.Add(cr);
 
                 ClassRoom cr2 = new ClassRoom
@@ -370,6 +400,77 @@ namespace projecten3_1920_backend_klim03.Data
                     ProductImage = "https://discountoffice.nl/productImages/8/large/Q800250-3.jpg"
                 };
 
+
+                Product pr5 = new Product
+                {
+                    Category = cat2,
+                    ProductName = "Glitter",
+                    Description = "Algemene beschrijving van glitter",
+                    Price = 15,
+                    Score = 3,
+                    ProductImage = "https://upload.wikimedia.org/wikipedia/commons/2/2a/Glitter_close_up.jpg"
+                };
+
+                Product pr6 = new Product
+                {
+                    Category = cat1,
+                    ProductName = "Klei",
+                    Description = "Algemene beschrijving van klei",
+                    Price = 10,
+                    Score = 9,
+                    ProductImage = "https://static.dreamland.be/wcsstore/ColruytB2CCAS/JPG/JPG/646x1000/std.lang.all/32/01/asset-213201.jpg"
+                };
+
+                Product pr7 = new Product
+                {
+                    Category = cat2,
+                    ProductName = "Rietjes",
+                    Description = "Algemene beschrijving van rietjes",
+                    Price = 20,
+                    Score = 2,
+                    ProductImage = "https://s.s-bol.com/imgbase0/imagebase3/large/FC/3/8/3/7/9200000056207383.jpg"
+                };
+
+                Product pr8 = new Product
+                {
+                    Category = cat2,
+                    ProductName = "Batterijen",
+                    Description = "Algemene beschrijving van batterijen",
+                    Price = 25,
+                    Score = 4,
+                    ProductImage = "https://www.hoofdluizen.info/images/kingma/duracell_baterijen.jpg"
+                };
+
+                Product pr9 = new Product
+                {
+                    Category = cat1,
+                    ProductName = "Touw",
+                    Description = "Algemene beschrijving van touw",
+                    Price = 10,
+                    Score = 8,
+                    ProductImage = "https://s.s-bol.com/imgbase0/imagebase3/large/FC/9/5/8/8/9200000040218859.jpg"
+                };
+
+                Product pr10 = new Product
+                {
+                    Category = cat1,
+                    ProductName = "Houten staafjes",
+                    Description = "Algemene beschrijving van houten staafjes",
+                    Price = 15,
+                    Score = 7,
+                    ProductImage = "https://www.disposablediscounter.nl/media/catalog/product/cache/8/image/650x650/3e6dcc690df1ad912d04361a483c3855/w/o/wooden-stirrers-wood-houten-roerstaafjes-holz-ruhrstabchen-disposable-discounter-1.jpg"
+                };
+
+                Product pr11 = new Product
+                {
+                    Category = cat1,
+                    ProductName = "Elastiekjes",
+                    Description = "Algemene beschrijving van elastiekjes",
+                    Price = 10,
+                    Score = 3,
+                    ProductImage = "https://media.margriet.nl/m/zbnr3gn6teh4.jpg/handig-met-elastiek.jpg"
+                };
+
                 Group groep1 = new Group
                 {
                     GroupId = 1,
@@ -409,6 +510,9 @@ namespace projecten3_1920_backend_klim03.Data
                 };
 
                 project1.AddProduct(pr1);
+                project1.AddProduct(pr9);
+                project1.AddProduct(pr10);
+                project1.AddProduct(pr11);
                 project1.AddGroup(groep1);
                 project1.AddGroup(groep3);
                 cr.AddProject(project1);
@@ -524,6 +628,10 @@ namespace projecten3_1920_backend_klim03.Data
                 project2.AddProduct(pr2);
                 project2.AddProduct(pr3);
                 project2.AddProduct(pr4);
+                project2.AddProduct(pr5);
+                project2.AddProduct(pr6);
+                project2.AddProduct(pr7);
+                project2.AddProduct(pr8);
                 project2.AddGroup(groep2);
                 cr.AddProject(project2);
                 _dbContext.SaveChanges();
