@@ -540,11 +540,19 @@ namespace projecten3_1920_backend_klim03.Data
                     GroupName = "Groep 4",
                     GroupCode = "54321"
                 };
+
                 Group groep5 = new Group
                 {
                     GroupId = 5,
                     GroupName = "Groep 5",
                     GroupCode = "678910"
+                };
+
+                Group groep6 = new Group
+                {
+                    GroupId = 6,
+                    GroupName = "Groep 6",
+                    GroupCode = "13579"
                 };
 
                 groep2.InitOrder();
@@ -571,6 +579,7 @@ namespace projecten3_1920_backend_klim03.Data
                 project1.AddProduct(pr11);
                 project1.AddGroup(groep1);
                 project1.AddGroup(groep3);
+                project1.AddGroup(groep6);
                 cr.AddProject(project1);
                 
 
@@ -734,7 +743,19 @@ namespace projecten3_1920_backend_klim03.Data
                         }
                     }
                 };
-                
+
+                groep6.Order = new Order
+                {
+                    OrderItems = new List<OrderItem>
+                    {
+                        new OrderItem
+                        {
+                            ProductId = pr1.ProductId,
+                            Amount = 200
+                        }
+                    }
+                };
+
 
 
 
