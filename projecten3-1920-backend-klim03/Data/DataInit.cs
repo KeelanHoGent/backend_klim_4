@@ -471,6 +471,48 @@ namespace projecten3_1920_backend_klim03.Data
                     ProductImage = "https://media.margriet.nl/m/zbnr3gn6teh4.jpg/handig-met-elastiek.jpg"
                 };
 
+
+
+                Product pr12 = new Product
+                {
+                    Category = cat2,
+                    ProductName = "Batterijen",
+                    Description = "Algemene beschrijving van batterijen",
+                    Price = 25,
+                    Score = 4,
+                    ProductImage = "https://www.hoofdluizen.info/images/kingma/duracell_baterijen.jpg"
+                };
+
+                Product pr13 = new Product
+                {
+                    Category = cat1,
+                    ProductName = "Touw",
+                    Description = "Algemene beschrijving van touw",
+                    Price = 10,
+                    Score = 8,
+                    ProductImage = "https://s.s-bol.com/imgbase0/imagebase3/large/FC/9/5/8/8/9200000040218859.jpg"
+                };
+
+                Product pr14 = new Product
+                {
+                    Category = cat1,
+                    ProductName = "Houten staafjes",
+                    Description = "Algemene beschrijving van houten staafjes",
+                    Price = 15,
+                    Score = 7,
+                    ProductImage = "https://www.disposablediscounter.nl/media/catalog/product/cache/8/image/650x650/3e6dcc690df1ad912d04361a483c3855/w/o/wooden-stirrers-wood-houten-roerstaafjes-holz-ruhrstabchen-disposable-discounter-1.jpg"
+                };
+
+                Product pr15 = new Product
+                {
+                    Category = cat1,
+                    ProductName = "Elastiekjes",
+                    Description = "Algemene beschrijving van elastiekjes",
+                    Price = 10,
+                    Score = 3,
+                    ProductImage = "https://media.margriet.nl/m/zbnr3gn6teh4.jpg/handig-met-elastiek.jpg"
+                };
+
                 Group groep1 = new Group
                 {
                     GroupId = 1,
@@ -491,10 +533,24 @@ namespace projecten3_1920_backend_klim03.Data
                     GroupName = "Groep 3",
                     GroupCode = "azert"
                 };
-                
+
+                Group groep4 = new Group
+                {
+                    GroupId = 4,
+                    GroupName = "Groep 4",
+                    GroupCode = "54321"
+                };
+                Group groep5 = new Group
+                {
+                    GroupId = 5,
+                    GroupName = "Groep 5",
+                    GroupCode = "678910"
+                };
 
                 groep2.InitOrder();
                 groep3.InitOrder();
+                groep4.InitOrder();
+                groep5.InitOrder();
 
                 //Projecten toevoegen
 
@@ -633,10 +689,10 @@ namespace projecten3_1920_backend_klim03.Data
                 project2.AddProduct(pr7);
                 project2.AddProduct(pr8);
                 project2.AddGroup(groep2);
+                
                 cr.AddProject(project2);
                 _dbContext.SaveChanges();
 
-                //Project dat gestart is met geen groepen en geen producten
                 Project project3 = new Project
                 {
                     ProjectBudget = 300,
@@ -646,11 +702,14 @@ namespace projecten3_1920_backend_klim03.Data
                     ApplicationDomainId = constructie.ApplicationDomainId,
                     ESchoolGrade = ESchoolGrade.ALGEMEEN,
                 };
-
+                project3.AddGroup(groep4);
+                project2.AddProduct(pr12);
+                project2.AddProduct(pr13);
+                project2.AddProduct(pr14);
+                project2.AddProduct(pr15);
                 cr.AddProject(project3);
                 _dbContext.SaveChanges();
 
-                //Project dat gesloten is met geen groepen en geen producten
                 Project project4 = new Project
                 {
                     ProjectBudget = 300,
@@ -661,7 +720,7 @@ namespace projecten3_1920_backend_klim03.Data
                     ESchoolGrade = ESchoolGrade.EERSTE,
                     Closed = true,
                 };
-
+                project4.AddGroup(groep5);
                 cr.AddProject(project4);
                 _dbContext.SaveChanges();
                 groep1.Order = new Order
