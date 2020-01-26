@@ -360,6 +360,11 @@ namespace projecten3_1920_backend_klim03.Data
                     CategoryDescr = "Andere gevallen"
                 };
 
+                Category cat3 = new Category
+                {
+                    CategoryName = "Versiering",
+                    CategoryDescr = "Extra versiering"
+                };
                 Product pr1 = new Product
                 {
                     Category = cat1,
@@ -403,7 +408,7 @@ namespace projecten3_1920_backend_klim03.Data
 
                 Product pr5 = new Product
                 {
-                    Category = cat2,
+                    Category = cat3,
                     ProductName = "Glitter",
                     Description = "Algemene beschrijving van glitter",
                     Price = 15,
@@ -423,7 +428,7 @@ namespace projecten3_1920_backend_klim03.Data
 
                 Product pr7 = new Product
                 {
-                    Category = cat2,
+                    Category = cat3,
                     ProductName = "Rietjes",
                     Description = "Algemene beschrijving van rietjes",
                     Price = 20,
@@ -573,7 +578,15 @@ namespace projecten3_1920_backend_klim03.Data
                     ESchoolGrade = ESchoolGrade.ALGEMEEN,
                 };
 
+
                 project1.AddProduct(pr1);
+                project1.AddProduct(pr2);
+                project1.AddProduct(pr3);
+                project1.AddProduct(pr4);
+                project1.AddProduct(pr5);
+                project1.AddProduct(pr6);
+                project1.AddProduct(pr7);
+                project1.AddProduct(pr8);
                 project1.AddProduct(pr9);
                 project1.AddProduct(pr10);
                 project1.AddProduct(pr11);
@@ -690,13 +703,7 @@ namespace projecten3_1920_backend_klim03.Data
                     ESchoolGrade = ESchoolGrade.ALGEMEEN,
                 };
 
-                project2.AddProduct(pr2);
-                project2.AddProduct(pr3);
-                project2.AddProduct(pr4);
-                project2.AddProduct(pr5);
-                project2.AddProduct(pr6);
-                project2.AddProduct(pr7);
-                project2.AddProduct(pr8);
+                
                 project2.AddGroup(groep2);
                 
                 cr.AddProject(project2);
