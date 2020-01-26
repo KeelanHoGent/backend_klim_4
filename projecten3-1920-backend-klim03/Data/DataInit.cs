@@ -42,9 +42,21 @@ namespace projecten3_1920_backend_klim03.Data
                 // category template
                 CategoryTemplate ct1 = new CategoryTemplate
                 {
-                    CategoryName = "default categorytemplate",
+                    CategoryName = "Bouwmaterialen",
                     AddedByGO = true,
-                    CategoryDescr = "default categorytemplate descr"
+                    CategoryDescr = "Alles voor constructies te bouwen"
+                };
+                CategoryTemplate ct2 = new CategoryTemplate
+                {
+                    CategoryName = "Divers",
+                    AddedByGO = true,
+                    CategoryDescr = "Overige materialen"
+                };
+                CategoryTemplate ct3 = new CategoryTemplate
+                {
+                    CategoryName = "Versiering",
+                    AddedByGO = true,
+                    CategoryDescr = "Extra versiering"
                 };
 
                 //application domain
@@ -96,6 +108,8 @@ namespace projecten3_1920_backend_klim03.Data
                 };
 
                 _dbContext.Add(ct1);
+                _dbContext.Add(ct2);
+                _dbContext.Add(ct3);
                 _dbContext.Add(schoolGO);
                 _dbContext.Add(energie);
                 _dbContext.Add(informatie);
