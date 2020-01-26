@@ -283,7 +283,7 @@ namespace projecten3_1920_backend_klim03.Data
                 {
                     ProductName = "Hout",
                     Description = "Dit is hout",
-                    AddedByGO = true,
+                    AddedByGO = false,
                     ProductImage = "https://cdn.webshopapp.com/shops/34832/files/96705407/800x600x1/van-gelder-hout-schuttingplanken.jpg",
                     Score = 8,
                     HasMultipleDisplayVariations = true,
