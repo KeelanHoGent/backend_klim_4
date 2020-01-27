@@ -613,19 +613,19 @@ namespace projecten3_1920_backend_klim03.Data
                 project1.EvaluationCritereas.Add(new EvaluationCriterea
                 {
                     EvaluationCritereaId = 1,
-                    Title="Eerste ronde"
+                    Title="Samenwerking"
                 });
 
                 project1.EvaluationCritereas.Add(new EvaluationCriterea
                 {
                     EvaluationCritereaId = 2,
-                    Title = "Tweede ronde"
+                    Title = "Milieubewustheid"
                 });
 
                 project1.EvaluationCritereas.Add(new EvaluationCriterea
                 {
                     EvaluationCritereaId = 3,
-                    Title = "Derde ronde"
+                    Title = "Kostbewustheid"
                 });
 
 
@@ -637,33 +637,33 @@ namespace projecten3_1920_backend_klim03.Data
 
                 groep1.AddEvaluation(new Evaluation
                 {
-                    DescriptionPupil = "Een eerste evaluatie voor de leerling",
-                    DescriptionPrivate = "Een eerste evaluatie voor de leerkracht",
+                    DescriptionPupil = "Jullie samenwerking is deze week beduidend beter.",
+                    DescriptionPrivate = "De samenwerking van deze groep blijven opvolgen. Elke week beter en beter. ",
                     Extra = false,
                     EvaluationCritereaId = 1
                 });
 
                 groep1.AddEvaluation(new Evaluation
                 {
-                    DescriptionPupil = "Een eerste evaluatie voor de leerling",
-                    DescriptionPrivate = "Een eerste evaluatie voor de leerkracht",
+                    DescriptionPupil = "Het in rekening houden dat sommige materialen kostbaarder zijn dan de andere moet nog op gewerkt worden",
+                    DescriptionPrivate = "Volgende week dit zeker opvolgen.",
                     Extra = false,
                     EvaluationCritereaId = 2
                 });
 
                 groep1.AddEvaluation(new Evaluation
                 {
-                    DescriptionPupil = "Een eerste evaluatie voor de leerling",
-                    DescriptionPrivate = "Een eerste evaluatie voor de leerkracht",
+                    DescriptionPupil = "Deze week is het in rekening houden van de kostbaarheid een stuk beter dan vorige week. Doe zo verder! ",
+                    DescriptionPrivate = "Nog steeds een beetje in het oog houden, dat de groep niet terugvalt.",
                     Extra = false,
                     EvaluationCritereaId = 3
                 });
 
                 groep1.AddEvaluation(new Evaluation
                 {
-                    Title = "Extra evaluatie",
-                    DescriptionPupil = "Evaluatie op het eindproduct voor de leerling",
-                    DescriptionPrivate = "Evaluatie op het eindproduct voor de leerkracht",
+                    Title = "Algemeen",
+                    DescriptionPupil = "Doe zo verder. Blijf denken aan de kosten van elk materiaal",
+                    DescriptionPrivate = "Deze groep is enorm verbeterd.",
                     Extra = true
                 });
 
@@ -672,24 +672,24 @@ namespace projecten3_1920_backend_klim03.Data
 
                 groep3.AddEvaluation(new Evaluation
                 {
-                    DescriptionPupil = "",
-                    DescriptionPrivate = "",
+                    DescriptionPupil = "Jullie samenwerking is deze week beduidend beter.",
+                    DescriptionPrivate = "De samenwerking van deze groep blijven opvolgen. Elke week beter en beter.",
                     Extra = false,
                     EvaluationCritereaId = 1
                 });
 
                 groep3.AddEvaluation(new Evaluation
                 {
-                    DescriptionPupil = "",
-                    DescriptionPrivate = "",
+                    DescriptionPupil = "Deze week is het in rekening houden van de kostbaarheid een stuk beter dan vorige week. Doe zo verder!",
+                    DescriptionPrivate = "Nog steeds een beetje in het oog houden, dat de groep niet terugvalt.",
                     Extra = false,
                     EvaluationCritereaId = 2
                 });
 
                 groep3.AddEvaluation(new Evaluation
                 {
-                    DescriptionPupil = "",
-                    DescriptionPrivate = "",
+                    DescriptionPupil = "Een serieuze verbetering doorheen de laatste 4 projecten. ",
+                    DescriptionPrivate = "Deze groep is enorm verbeterd.",
                     Extra = false,
                     EvaluationCritereaId = 3
                 });
@@ -700,7 +700,7 @@ namespace projecten3_1920_backend_klim03.Data
 
 
 
-              
+
 
 
 
